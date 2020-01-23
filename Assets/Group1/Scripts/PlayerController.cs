@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         {
             _baseSpeed = _speed;
             _speed = (float)AccseleratingSpeed?.Invoke(_speed);
+            Destroy(accselerator.gameObject);
             ReturnToBaseSpeed();
         }
     }
