@@ -12,6 +12,7 @@ public class GameConditionController : MonoBehaviour
     private int _allEnemiesDead = 0;
 
     private GameState _state = GameState.Play;
+
     private void OnEnable()
     {
         _player.EnemyDied += CountAliveEnemyInGame;
