@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 
-public class GameConditionController : MonoBehaviour
+public class EndGameChecker : MonoBehaviour
 {
-    enum GameState { Play,EndGame };
-
     [SerializeField] private GameObject _endGameInterface;
     [SerializeField] private PlayerController _player;
 
@@ -11,11 +9,9 @@ public class GameConditionController : MonoBehaviour
 
     private int _allEnemiesDead = 0;
 
-    private GameState _state = GameState.Play;
-
     private void OnEnable()
     {
-        _player.EnemyDied += CountAliveEnemyInGame;
+        _player.EnemyDied += OnEnemyDied;
     }
 
     private void Start()
@@ -23,30 +19,28 @@ public class GameConditionController : MonoBehaviour
         _enemies = FindObjectsOfType<Enemy>();
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (_allEnemiesDead == _enemies.Length)
-        {
-            SetGameState(_state);
-        }
+        _player.EnemyDied -= OnEnemyDied;
     }
 
-    private void CountAliveEnemyInGame()
+    private void OnEnemyDied()
     {
         _allEnemiesDead++;
-    }
-
-    private void SetGameState(GameState state)
-    {
-        if (_state == GameState.Play)
-        {
-            SetEndGameState();
-        }
+        IsAllEnemiesDied();
     }
 
     private void SetEndGameState()
     {
         _player.enabled = false;
         _endGameInterface.SetActive(true);
+    }
+
+    private void IsAllEnemiesDied()
+    {
+        if (_allEnemiesDead == _enemies.Length)
+        {
+            SetEndGameState();
+        }
     }
 }

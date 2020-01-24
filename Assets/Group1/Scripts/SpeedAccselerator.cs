@@ -8,15 +8,15 @@ public class SpeedAccselerator : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.AccseleratingSpeed += IncreaseSpeed;
+        _player.SpeedAccselerating += OnSpeedAccselerating;
     }
 
     private void OnDisable()
     {
-        _player.AccseleratingSpeed -= IncreaseSpeed;
+        _player.SpeedAccselerating -= OnSpeedAccselerating;
     }
 
-    private float IncreaseSpeed(float speed)
+    private float OnSpeedAccselerating(float speed)
     {
         return speed * _speedIncreaseMultiplier;
     }

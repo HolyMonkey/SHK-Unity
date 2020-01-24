@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,11 +10,18 @@ public class PlayerController : MonoBehaviour
 
     private float _baseSpeed;
 
-    public delegate float SpeedUp(float speed);
-    public event SpeedUp AccseleratingSpeed;
+    private float _speedUpDuration = 2f;
+    private float _baseDuration;
 
-    public delegate void EnemyDiedNotification();
-    public event EnemyDiedNotification EnemyDied;
+    public event Func<float, float> SpeedAccselerating;
+
+    public event Action EnemyDied;
+
+    private void Start()
+    {
+        _baseSpeed = _speed;
+        _baseDuration = _speedUpDuration;
+    }
 
     private void Update()
     {
@@ -32,24 +40,22 @@ public class PlayerController : MonoBehaviour
         }
         else if (accselerator)
         {
-            _baseSpeed = _speed;
-            _speed = (float)AccseleratingSpeed?.Invoke(_speed);
-            Destroy(accselerator.gameObject);
-            ReturnToBaseSpeed();
+            _speed = (float)SpeedAccselerating?.Invoke(_speed);
+            StartCoroutine(SpeedupTimer(_baseDuration));
         }
     }
 
     private Vector2 GetMoveSpeed()
     {
-        float _horizontalSpeed = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
-        float _verticalSpeed = Input.GetAxisRaw("Vertical") * _speed * Time.deltaTime;
+        float _horizontalSpeed = Input.GetAxisRaw("Horizontal");
+        float _verticalSpeed = Input.GetAxisRaw("Vertical");
 
-        return new Vector2(_horizontalSpeed, _verticalSpeed);
+        return new Vector2(_horizontalSpeed, _verticalSpeed) * _speed * Time.deltaTime;
     }
 
-    IEnumerator ReturnToBaseSpeed()
+    private IEnumerator SpeedupTimer(float duration)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(duration);
 
         _speed = _baseSpeed;
     }

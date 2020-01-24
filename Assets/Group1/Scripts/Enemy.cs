@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _target = GetMovementDirection();
+        _target = GetNewTargetPoint();
     }
 
     private void Update()
@@ -26,11 +26,11 @@ public class Enemy : MonoBehaviour
 
         if (_rigidbody.position == _target)
         {
-            _target = GetMovementDirection();
+            _target = GetNewTargetPoint();
         }
     }
 
-    private Vector2 GetMovementDirection()
+    private Vector2 GetNewTargetPoint()
     {
         return Random.insideUnitCircle * _movementRadius;
     }
