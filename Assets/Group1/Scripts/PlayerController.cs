@@ -9,9 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed;
 
     private float _baseSpeed;
-
     private float _speedUpDuration = 2f;
-    private float _baseDuration;
 
     public event Func<float, float> SpeedAccselerating;
 
