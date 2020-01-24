@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _baseSpeed = _speed;
-        _baseDuration = _speedUpDuration;
     }
 
     private void Update()
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
         else if (accselerator)
         {
             _speed = (float)SpeedAccselerating?.Invoke(_speed);
-            StartCoroutine(SpeedupTimer(_baseDuration));
+            StartCoroutine(SpeedupTimer(_speedUpDuration));
         }
     }
 
