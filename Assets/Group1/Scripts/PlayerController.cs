@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             Destroy(enemy.gameObject);
             EnemyDied?.Invoke();
         }
-        if (accselerator)
+        else if (accselerator)
         {
             _speed = (float)SpeedAccselerating?.Invoke(_speed);
             IsAccselerated = true;
