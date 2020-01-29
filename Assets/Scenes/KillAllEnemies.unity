@@ -353,7 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acde9db18db6fbe4ebb46d2dbe3ab5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1761935012}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,9 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6d0074e725a114e850d2e604fe4b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyContainer: {fileID: 425974795}
   _collisionDistance: 1
   _player: {fileID: 1761935012}
-  _enemyContainer: []
 --- !u!1 &1054253062
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a378cfa7f7c259944bb1a77d79af0e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyContainer: {fileID: 425974795}
 --- !u!1 &1578050036
 GameObject:
   m_ObjectHideFlags: 0

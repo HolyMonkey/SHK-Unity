@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
     private float _time;
-
-    public event UnityAction<Enemy> EnemyKilled;
 
     void Update()
     {
@@ -34,7 +31,6 @@ public class Player : MonoBehaviour
 
     public void OnCollision(Enemy enemy)
     {
-        EnemyKilled?.Invoke(enemy);
         Destroy(enemy.gameObject);
     }
 
