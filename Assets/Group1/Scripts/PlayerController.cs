@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,12 +10,10 @@ public class PlayerController : MonoBehaviour
 
     private float _baseSpeed;
 
-    private float _speedUpDuration;
-    private float _speedUpBaseDuration = 5f;
+    private float _speedUpDuration = 5f;
 
-    private bool IsAccselerated;
-
-    public event Func<float, float> SpeedAccselerating;
+    public event Func<int> SpeedAccselerating;
+    public event Func<int> SpeedAccselerationTimerPassed;
 
     public event Action EnemyDied;
 
@@ -26,11 +25,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _rigidbody.velocity = GetMoveSpeed();
-
-        if (IsAccselerated)
-        {
-            AccselerationTimer();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,9 +39,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (accselerator)
         {
-            _speed = (float)SpeedAccselerating?.Invoke(_speed);
-            IsAccselerated = true;
-            _speedUpDuration = _baseDuration;
+            _speed = _baseSpeed * (float)SpeedAccselerating?.Invoke();
+            StartCoroutine(AccselerationTimer());
         }
     }
 
@@ -59,15 +52,13 @@ public class PlayerController : MonoBehaviour
         return new Vector2(_horizontalSpeed, _verticalSpeed) * _speed * Time.deltaTime;
     }
 
-    private void AccselerationTimer()
+    private IEnumerator AccselerationTimer()
     {
-        _speedUpDuration -= Time.deltaTime;
-
-        if (_speedUpDuration <= 0)
+        while (_speed != _baseSpeed)
         {
-            IsAccselerated = false;
-            _speed = _baseSpeed;
-            _speedUpDuration = _speedUpBaseDuration;
+            yield return new WaitForSeconds(_speedUpDuration);
+
+            _speed = _baseSpeed * (float)SpeedAccselerationTimerPassed?.Invoke();
         }
     }
 }
