@@ -5,7 +5,7 @@ public class EndGameChecker : MonoBehaviour
     [SerializeField] private GameObject _endGameInterface;
     [SerializeField] private PlayerController _player;
 
-    [SerializeField] private Enemy[] _enemies;
+    private Enemy[] _enemies;
 
     private int _allEnemiesDead = 0;
 
