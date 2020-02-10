@@ -11,7 +11,7 @@ public class GameOverScreen : MonoBehaviour
 
     private void FinishGame()
     {
-        gameObject.SetActive(true);
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private void OnDisable()

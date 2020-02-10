@@ -9,24 +9,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(0, _speed * Time.deltaTime, 0);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(0, -_speed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(-_speed * Time.deltaTime, 0, 0);
-
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(_speed * Time.deltaTime, 0, 0);
+        transform.Translate(new Vector3(horizontal, vertical, 0) * (_speed * Time.deltaTime));
     }
 
     private void PickUpSpeedBoost(float speedMultyplier, float accelerationTime)
     {
         _speed *= speedMultyplier;
         _time = accelerationTime;
-        StartCoroutine(TimerDecrease(speedMultyplier));
+        StartCoroutine(TimerDecrease(speedMultyplier, accelerationTime));
     }
 
     public void OnCollision(Enemy enemy)
@@ -34,10 +27,10 @@ public class Player : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 
-    private IEnumerator TimerDecrease(float speedMultyplier)
+    private IEnumerator TimerDecrease(float speedMultyplier, float accelerationTime)
     {
-        _time -= Time.deltaTime;
-        if (_time < 0)
+        accelerationTime -= Time.deltaTime;
+        if (accelerationTime < 0)
         {
             _speed /= speedMultyplier;
         }
