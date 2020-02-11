@@ -10,12 +10,12 @@ public class GameCollision : MonoBehaviour
     {
         for (int i = _enemyContainer.GetEnemies().Count - 1; i >= 0; i--)
         {
-            float distance;
+            Enemy enemy = _enemyContainer.GetEnemies()[i];
 
-            distance = Vector3.Distance(_player.transform.position, _enemyContainer.GetEnemies()[i].transform.position);
+            float distance = Vector3.Distance(_player.transform.position, enemy.transform.position);
+
             if (distance < _radius)
             {
-                Enemy enemy = _enemyContainer.GetEnemies()[i];
                 _enemyContainer.RemoveEnemy(enemy);
                 _player.OnCollision(enemy);
             }

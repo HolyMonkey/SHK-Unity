@@ -2,7 +2,7 @@
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _targetRadius;
+    [SerializeField] private float _movementRadius;
     [SerializeField] private float _speed;
 
     private Vector3 _target;
@@ -23,6 +23,6 @@ public class Enemy : MonoBehaviour
 
     private Vector3 GetNextTarget()
     {
-        return Random.insideUnitCircle * _targetRadius;
+        return Random.insideUnitCircle * _movementRadius;
     }
 }
