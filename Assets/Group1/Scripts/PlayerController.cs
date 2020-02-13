@@ -9,13 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 50f;
 
     private float _baseSpeed;
-
     private float _speedUpDuration = 5f;
+    private int _speedUpMultiplier = 1;
 
-    public event Func<int> SpeedAccselerating;
-    public event Func<int> SpeedAccselerationTimerPassed;
-
-    public event Action EnemyDied;
+    public event Action<Enemy> EnemyDied;
 
     private void Start()
     {
@@ -35,12 +32,12 @@ public class PlayerController : MonoBehaviour
         if (enemy)
         {
             Destroy(enemy.gameObject);
-            EnemyDied?.Invoke();
+            EnemyDied?.Invoke(enemy);
         }
         else if (accselerator)
         {
-            _speed = _baseSpeed * (float)SpeedAccselerating?.Invoke();
-            StartCoroutine(AccselerationTimer());
+            AccselerateSpeed();
+            Destroy(collision.gameObject);
         }
     }
 
@@ -54,11 +51,20 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AccselerationTimer()
     {
-        while (_speed != _baseSpeed)
-        {
-            yield return new WaitForSeconds(_speedUpDuration);
+        yield return new WaitForSeconds(_speedUpDuration);
 
-            _speed = _baseSpeed * (float)SpeedAccselerationTimerPassed?.Invoke();
-        }
+        _speed = _baseSpeed * --_speedUpMultiplier;
+    }
+
+    private void AccselerateSpeed()
+    {
+        _speed = _baseSpeed * ++_speedUpMultiplier;
+
+        ReduceSpeed();
+    }
+
+    private void ReduceSpeed()
+    {
+        StartCoroutine(AccselerationTimer());
     }
 }

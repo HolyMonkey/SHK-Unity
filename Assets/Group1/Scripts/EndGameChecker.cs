@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class EndGameChecker : MonoBehaviour
 {
-    [SerializeField] private GameObject _endGameInterface;
+    [SerializeField] private List<Enemy> _enemies;
+
     [SerializeField] private PlayerController _player;
 
-    private Enemy[] _enemies;
-
-    private int _allEnemiesDead = 0;
+    public event Action AllEnemiesDied;
 
     private void OnEnable()
     {
         _player.EnemyDied += OnEnemyDied;
-    }
-
-    private void Start()
-    {
-        _enemies = FindObjectsOfType<Enemy>();
     }
 
     private void OnDisable()
@@ -24,23 +21,14 @@ public class EndGameChecker : MonoBehaviour
         _player.EnemyDied -= OnEnemyDied;
     }
 
-    private void OnEnemyDied()
+    private void Start()
     {
-        _allEnemiesDead++;
-        IsAllEnemiesDied();
+        _enemies = FindObjectsOfType<Enemy>().ToList();
     }
 
-    private void SetEndGameState()
+    private void OnEnemyDied(Enemy enemy)
     {
-        _player.enabled = false;
-        _endGameInterface.SetActive(true);
-    }
-
-    private void IsAllEnemiesDied()
-    {
-        if (_allEnemiesDead == _enemies.Length)
-        {
-            SetEndGameState();
-        }
+        _enemies.Remove(enemy);
+        AllEnemiesDied?.Invoke();
     }
 }
