@@ -4,18 +4,25 @@ public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private EnemyContainer _enemyContainer;
 
+    private SpriteRenderer _spriteRenderer;
+
+    private void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void FinishGame()
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+       _spriteRenderer.enabled = true;
     }
 
     private void OnEnable()
     {
-        _enemyContainer.GameOvered += FinishGame;
+        _enemyContainer.AllEnemiesDied += FinishGame;
     }
 
     private void OnDisable()
     {
-        _enemyContainer.GameOvered -= FinishGame;
+        _enemyContainer.AllEnemiesDied -= FinishGame;
     }
 }

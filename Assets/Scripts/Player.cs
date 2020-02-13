@@ -5,8 +5,6 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private float _time;
-
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -18,8 +16,7 @@ public class Player : MonoBehaviour
     private void PickUpSpeedBoost(float speedMultyplier, float accelerationTime)
     {
         _speed *= speedMultyplier;
-        _time = accelerationTime;
-        StartCoroutine(DecreaseTimer(speedMultyplier, accelerationTime));
+        StartCoroutine(ExpirationBonus(speedMultyplier, accelerationTime));
     }
 
     public void OnCollision(Enemy enemy)
@@ -27,7 +24,7 @@ public class Player : MonoBehaviour
         Destroy(enemy.gameObject);
     }
 
-    private IEnumerator DecreaseTimer(float speedMultyplier, float accelerationTime)
+    private IEnumerator ExpirationBonus(float speedMultyplier, float accelerationTime)
     {
         accelerationTime -= Time.deltaTime;
         if (accelerationTime < 0)

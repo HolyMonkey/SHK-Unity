@@ -6,7 +6,7 @@ public class EnemyContainer : MonoBehaviour
 {
     private List<Enemy> _enemies;
 
-    public event UnityAction GameOvered;
+    public event UnityAction AllEnemiesDied;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class EnemyContainer : MonoBehaviour
 
         if (_enemies.Count == 0)
         {
-            GameOvered?.Invoke();
+            AllEnemiesDied?.Invoke();
         }
     }
 
