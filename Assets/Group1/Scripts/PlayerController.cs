@@ -21,27 +21,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _rigidbody.velocity = GetMoveSpeed();
+        _rigidbody.velocity = GetMovementDirection();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
-        SpeedAccselerator accselerator = collision.GetComponent<SpeedAccselerator>();
+        SpeedAccelerator accelerator = collision.GetComponent<SpeedAccelerator>();
 
         if (enemy)
         {
             Destroy(enemy.gameObject);
             EnemyDied?.Invoke(enemy);
         }
-        else if (accselerator)
+        else if (accelerator)
         {
-            AccselerateSpeed();
+            AccelerateSpeed();
             Destroy(collision.gameObject);
         }
     }
 
-    private Vector2 GetMoveSpeed()
+    private Vector2 GetMovementDirection()
     {
         float _horizontalSpeed = Input.GetAxisRaw("Horizontal");
         float _verticalSpeed = Input.GetAxisRaw("Vertical");
@@ -49,14 +49,14 @@ public class PlayerController : MonoBehaviour
         return new Vector2(_horizontalSpeed, _verticalSpeed) * _speed * Time.deltaTime;
     }
 
-    private IEnumerator AccselerationTimer()
+    private IEnumerator CheckAccelerationTimer()
     {
         yield return new WaitForSeconds(_speedUpDuration);
 
         _speed = _baseSpeed * --_speedUpMultiplier;
     }
 
-    private void AccselerateSpeed()
+    private void AccelerateSpeed()
     {
         _speed = _baseSpeed * ++_speedUpMultiplier;
 
@@ -65,6 +65,6 @@ public class PlayerController : MonoBehaviour
 
     private void ReduceSpeed()
     {
-        StartCoroutine(AccselerationTimer());
+        StartCoroutine(CheckAccelerationTimer());
     }
 }

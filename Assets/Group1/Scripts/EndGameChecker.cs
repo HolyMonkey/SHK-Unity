@@ -6,7 +6,6 @@ using System.Linq;
 public class EndGameChecker : MonoBehaviour
 {
     [SerializeField] private List<Enemy> _enemies;
-
     [SerializeField] private PlayerController _player;
 
     public event Action AllEnemiesDied;
@@ -29,6 +28,10 @@ public class EndGameChecker : MonoBehaviour
     private void OnEnemyDied(Enemy enemy)
     {
         _enemies.Remove(enemy);
-        AllEnemiesDied?.Invoke();
+
+        if (!_enemies.Count)
+        {
+            AllEnemiesDied?.Invoke();
+        }
     }
 }
