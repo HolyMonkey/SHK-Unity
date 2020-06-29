@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 141422278}
   - component: {fileID: 141422277}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +289,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.3509887e-38, z: 2.7107536e-20, w: 7.737127e+25}
+  m_BoundingSphereOverride: {x: 0, y: 1.8974e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -404,12 +404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _endGameSprite: {fileID: 1054253062}
-  _player: {fileID: 1761935012}
-  _enemies:
-  - {fileID: 2083640146}
-  - {fileID: 1754708960}
-  - {fileID: 141422275}
-  - {fileID: 1578050036}
+  _greenCircle: {fileID: 0}
+  _redSquares: []
 --- !u!1 &1054253062
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +417,7 @@ GameObject:
   - component: {fileID: 1054253064}
   - component: {fileID: 1054253063}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: BlackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +499,7 @@ GameObject:
   - component: {fileID: 1578050039}
   - component: {fileID: 1578050038}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,7 +593,7 @@ GameObject:
   - component: {fileID: 1754708963}
   - component: {fileID: 1754708962}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +687,7 @@ GameObject:
   - component: {fileID: 1761935010}
   - component: {fileID: 1761935012}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: PlayerCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -774,8 +770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0
-  timer: 0
-  time: 0
+  _acceleration: 0
+  _accelerationDuration: 0
 --- !u!1 &2083640146
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +784,7 @@ GameObject:
   - component: {fileID: 2083640147}
   - component: {fileID: 2083640150}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
