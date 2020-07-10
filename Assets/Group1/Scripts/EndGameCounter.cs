@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyCount : MonoBehaviour
+public class EndGameCounter : MonoBehaviour
 {
     [SerializeField] private GameObject _endGameSprite;
-    [SerializeField] private PlayerMovement _greenCircle;
+    [SerializeField] private PlayerMovement _player;
     [SerializeField] private List<EnemyMovement> _enemies;
     private float _minDistance;
 
     public void End()
     {
+        _player.gameObject.SetActive(false);
         _endGameSprite.SetActive(true);
     }
 
@@ -22,25 +23,30 @@ public class EnemyCount : MonoBehaviour
             if (square == null)
                 continue;
 
-            if (Vector3.Distance(_greenCircle.transform.position, square.transform.position) < _minDistance)
+            if (Vector3.Distance(_player.transform.position, square.transform.position) < _minDistance)
             {
                 DestroyEnemy(square);
-                CheckEnemyCount();
+                if (CheckEnemyCount())
+                {
+                    End();
+                }
             }
         }
     }
 
-    private void DestroyEnemy(EnemyMovement square)
+    private void DestroyEnemy(EnemyMovement enemy)
     {
-        Destroy(square);
+        Destroy(enemy.gameObject);
     }
 
-    private void CheckEnemyCount()
+    private bool CheckEnemyCount()
     {
-        _enemies = _enemies.Where(square =>square !=null).ToList();
+        _enemies = _enemies.Where(square =>square != null).ToList();
         if (_enemies.Count == 0)
         {
-            _greenCircle.enabled = false;
+            return true;
         }
+
+        return false;
     }
 }
