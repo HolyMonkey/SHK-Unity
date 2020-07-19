@@ -5,19 +5,27 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public event UnityAction<Enemy> Dead;
+    [SerializeField] private float _speed = 2;
+    [SerializeField] private float _maxRadius = 4;
     private Vector3 _target;
+
+    public event UnityAction<Enemy> Dead;
 
     private void Start()
     {
-        _target = Random.insideUnitCircle * 4;
+        SetRandomTarget();
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target, 2 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
         if (transform.position == _target)
-            _target = Random.insideUnitCircle * 4;
+            SetRandomTarget();
+    }
+
+    private void SetRandomTarget()
+    {
+        _target = Random.insideUnitCircle * _maxRadius;
     }
 
     public void Destroy()

@@ -7,19 +7,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-            Move(0, 1);
-        if (Input.GetKey(KeyCode.S))
-            Move(0, -1);
-        if (Input.GetKey(KeyCode.A))
-            Move(-1, 0);
-        if (Input.GetKey(KeyCode.D))
-            Move(1, 0);
+        Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
     private void Move(float x, float y)
     {
-        transform.Translate(x * _speed * Time.deltaTime, y * _speed * Time.deltaTime, 0);
+        float currentSpeed = _speed * Time.deltaTime;
+        transform.Translate(x * currentSpeed, y * currentSpeed, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,7 +24,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator ActivateSpeedBonusCoroutine()
+    private IEnumerator ActivateSpeedBonus()
     {
         _speed *= 2;
         yield return new WaitForSeconds(2);
