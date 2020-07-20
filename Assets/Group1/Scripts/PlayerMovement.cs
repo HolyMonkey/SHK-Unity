@@ -5,18 +5,20 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private bool _acceleration;
-    [SerializeField] private float _accelerationDuration;
+    [SerializeField] private float _accelerationDuration = 2;
     [SerializeField] private float _accelerationMultiply = 1;
     private Vector2 _direction = new Vector2();
+    private float _accelerationTime = 0;
 
     private void Update()
     {
-        if (_accelerationDuration > 0)
+        if (_accelerationMultiply > 1)
         {
-            _accelerationDuration -= Time.deltaTime;
-            if(_accelerationDuration <= 0)
+            _accelerationTime += Time.deltaTime;
+            if(_accelerationTime >= _accelerationDuration)
             {
-                _accelerationMultiply = 1;
+                _accelerationMultiply /= 2;
+                _accelerationTime = 0;
             }
         }
 
@@ -28,11 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddAcceleration()
     {
-        _accelerationMultiply = 2;
-
-        if (_accelerationDuration <= 0)
-            _accelerationDuration = 2;
-        else
-            _accelerationDuration += 2;
+        _accelerationMultiply *= 2;
     }
 }

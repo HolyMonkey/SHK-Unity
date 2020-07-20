@@ -7,8 +7,9 @@ public class EndGameCounter : MonoBehaviour
 {
     [SerializeField] private GameObject _endGameSprite;
     [SerializeField] private PlayerMovement _player;
+    [SerializeField] private float _minDistance;
     [SerializeField] private List<EnemyMovement> _enemies;
-    private float _minDistance;
+   
 
     public void End()
     {
