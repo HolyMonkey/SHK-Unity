@@ -633,7 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1761935013}
   _enemyGenerator: {fileID: 915582975}
-  _enemyContainer: {fileID: 855879940}
+  _deactivatedEnemiesController: {fileID: 855879940}
   _mainMenu: {fileID: 85028150}
   _gameOverMenu: {fileID: 1863737126}
 --- !u!1 &764754995
@@ -2007,7 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3353b8ed9df8344888143edc4fc89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 855879938}
+  _container: {fileID: 0}
   _capacity: 1
 --- !u!4 &1504505486
 Transform:
