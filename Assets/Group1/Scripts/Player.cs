@@ -5,33 +5,31 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private float _elapsedBonusTime;
+    private float _elapsedBonusTime = 0f;
+    private float _bonusTime = 0f;
 
-    public event UnityAction<Enemy> enemyCatched;
-
-    public bool _bonus = false;
-    public float _bonusTime = 2f;
+    public event UnityAction<Enemy> EnemyCatched;
 
     private void Update()
     {
-        if (_bonus)
+        if(_bonusTime > 0f)
         {
+            Debug.Log(_bonusTime);
             _elapsedBonusTime += Time.deltaTime;
-            if (_elapsedBonusTime >= _bonusTime)
-            {
-                _elapsedBonusTime = 0;
-                _bonus = false;
-                _speed /= 2;
-            }
         }
 
-        float verticalAxis = Input.GetAxis("Vertical") * _speed * Time.deltaTime;
-        float horizontalAxis = Input.GetAxis("Horizontal") * _speed * Time.deltaTime;
-
-        if(verticalAxis !=0 || horizontalAxis != 0)
+        if (_elapsedBonusTime > _bonusTime)
         {
-            transform.Translate(horizontalAxis, verticalAxis, 0);
+            Debug.Log(_elapsedBonusTime);
+            _bonusTime = 0f;
+            _speed /= 2;
         }
+
+        float localSpeed = _speed * Time.deltaTime;
+        float verticalAxis = Input.GetAxis("Vertical") * localSpeed;
+        float horizontalAxis = Input.GetAxis("Horizontal") * localSpeed;
+
+        transform.Translate(horizontalAxis, verticalAxis, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,10 +39,13 @@ public class Player : MonoBehaviour
 
         if (collision.TryGetComponent<SpeedBonus>(out SpeedBonus _speedBonus))
         {
-            Destroy(_speedBonus.gameObject);
-            _speed *= 2;
-            _bonus = true;
+            if (_bonusTime == 0f)
+            {
+                _speed *= 2;
+            }
 
+            _bonusTime += _speedBonus.BonusTime;
+            Destroy(_speedBonus.gameObject);
         }
     }
 }
