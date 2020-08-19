@@ -4,31 +4,29 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private Player _player;
-    [SerializeField] private Enemy[] _enemies;
-
-    private bool _isGameOver = false;
+    [SerializeField] private GameObject[] _enemies;
 
     private void OnEnable()
     {
-        _player.enemyCatched += CatchEnemy;
+        _player.EnemyCatched += CatchEnemy;
     }
 
     private void OnDisable()
     {
-        _player.enemyCatched -= CatchEnemy;
+        _player.EnemyCatched -= CatchEnemy;
     }
 
-    private void CatchEnemy(Enemy enemy)
+    private void CatchEnemy(GameObject enemy)
     {
-        enemy.enabled = false;
+        enemy.gameObject.SetActive(false);
         CheckEndGame();
     }
 
     private void CheckEndGame()
     {
-        foreach(Enemy enemy in _enemies)
+        foreach(GameObject enemy in _enemies)
         {
-            if (enemy.enabled == true)
+            if (enemy.active == true)
                 return;
         }
 
