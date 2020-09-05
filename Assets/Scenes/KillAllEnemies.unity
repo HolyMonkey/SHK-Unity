@@ -857,7 +857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845361829
 GameObject:
@@ -943,7 +943,7 @@ GameObject:
   - component: {fileID: 855879939}
   - component: {fileID: 855879940}
   m_Layer: 0
-  m_Name: DeactivatedEnemiesController
+  m_Name: EnemyContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -961,7 +961,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &855879940
 MonoBehaviour:
@@ -1001,14 +1001,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 915582974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a26d6732af6c644997316f9fdec416, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e34fdf0614ee15438405970adcb4e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 855879938}
-  _capacity: 4
-  _template: {fileID: 1142515772700710382, guid: 003a78e4ad138ce4e8fd0bbfae5f557c,
-    type: 3}
-  _parentForEnemies: {fileID: 0}
+  _capacity: 1
+  _templates:
+  - {fileID: 1142515772700710382, guid: 003a78e4ad138ce4e8fd0bbfae5f557c, type: 3}
+  - {fileID: 1142515772700710382, guid: 003a78e4ad138ce4e8fd0bbfae5f557c, type: 3}
+  - {fileID: 1142515772700710382, guid: df65feeefc6c4c0458d01d0e94e0eb5a, type: 3}
+  - {fileID: 1142515772700710382, guid: df65feeefc6c4c0458d01d0e94e0eb5a, type: 3}
+  _parentForTemplates: {fileID: 855879939}
 --- !u!4 &915582976
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1024,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &987227263
 GameObject:
@@ -1116,7 +1119,7 @@ RectTransform:
   - {fileID: 85028147}
   - {fileID: 1863737123}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2007,7 +2010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a3353b8ed9df8344888143edc4fc89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 0}
+  _container: {fileID: 855879938}
   _capacity: 1
 --- !u!4 &1504505486
 Transform:
@@ -2096,6 +2099,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509072973}
   m_CullTransparentMesh: 0
+--- !u!1 &1514126196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1514126198}
+  - component: {fileID: 1514126197}
+  m_Layer: 0
+  m_Name: PowerUpTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1514126197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514126196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b829dc9b2e4890344adbd4a23f9d7ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1514126198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514126196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.28033406, y: 1.2612712, z: -0.7362042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1583900657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,6 +2357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dede9e7d6741aea4cb07b98da83cc6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesContainer: {fileID: 855879940}
 --- !u!114 &1761935013
 MonoBehaviour:
   m_ObjectHideFlags: 0

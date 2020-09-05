@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
-    public event UnityAction CollisionWithPlayer;
+    public event UnityAction ActivatePowerUp;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Player player))
         {
-            CollisionWithPlayer?.Invoke();
-            gameObject.SetActive(false);
+            ActivatePowerUp?.Invoke();
         }
     }
 }

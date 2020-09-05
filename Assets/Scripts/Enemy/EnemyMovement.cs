@@ -5,16 +5,24 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Vector3 _target;
-  
+    private float _radius = 4;
+    private float _acceleration = 2;
+
+
     void Start()
     {
-        _target = Random.insideUnitCircle * 4;
+       CreateTargetToMove();
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target, 2 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target, _acceleration * Time.deltaTime);
         if (transform.position == _target)
-            _target = Random.insideUnitCircle * 4;
+            CreateTargetToMove();
+    }
+
+    private void CreateTargetToMove()
+    {
+        _target = Random.insideUnitCircle * _radius;
     }
 }

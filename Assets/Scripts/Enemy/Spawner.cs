@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyGenerator : ObjectPool
+public class Spawner : ObjectPool
 {
-    [SerializeField] private GameObject _template;
-    [SerializeField] private Transform _parentForEnemies;
+    [SerializeField] List<GameObject> _templates;
+    [SerializeField] private Transform _parentForTemplates;
     
 
     private void Start()
     {
-        Initialized(_template);
-        ResetEnemiesPosition();
+        foreach (var template in _templates)
+        {
+            Initialized(template);
+            ResetEnemiesPosition();
+        }
+        
     }
 
     public void ResetEnemiesPosition()

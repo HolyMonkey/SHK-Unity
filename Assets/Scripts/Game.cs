@@ -5,8 +5,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private EnemyGenerator _enemyGenerator;
-    [SerializeField] private DeactivatedEnemiesController _deactivatedEnemiesController;
+    [SerializeField] private Spawner _enemyGenerator;
+    [SerializeField] private EnemiesContainer _deactivatedEnemiesController;
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private GameOverMenu _gameOverMenu;
 
@@ -24,7 +24,7 @@ public class Game : MonoBehaviour
         _mainMenu.ExitButtonClickReached += OnExitButtonClick;
         _gameOverMenu.RestartButtonClickReached += OnRestartButtonClick;
         _gameOverMenu.ExitButtonClickReached += OnExitButtonClick;
-        _deactivatedEnemiesController.GetComponent<DeactivatedEnemiesController>().NoEnemeisOnLevelReached += OnGameOver;
+        _deactivatedEnemiesController.GetComponent<EnemiesContainer>().AllDie += OnGameOver;
     }
 
     private void OnDisable()
@@ -33,7 +33,7 @@ public class Game : MonoBehaviour
         _mainMenu.ExitButtonClickReached -= OnExitButtonClick;
         _gameOverMenu.RestartButtonClickReached -= OnRestartButtonClick;
         _gameOverMenu.ExitButtonClickReached -= OnExitButtonClick;
-        _deactivatedEnemiesController.GetComponent<DeactivatedEnemiesController>().NoEnemeisOnLevelReached -= OnGameOver;
+        _deactivatedEnemiesController.GetComponent<EnemiesContainer>().AllDie -= OnGameOver;
     }
 
     private void OnPlayButtonClick()
