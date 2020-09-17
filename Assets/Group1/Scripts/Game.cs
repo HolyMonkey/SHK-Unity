@@ -11,7 +11,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        CheckActiveEnemies();
+        CheckExistenceOfEnemies();
 
         foreach (var enemy in _enemies)
         {
@@ -27,15 +27,23 @@ public class Game : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        foreach (var enemy in _enemies)
+        {
+            enemy.EnemyDead -= OnEnemyDied;
+        }
+    }
+
     private void OnEnemyDied(Enemy enemy)
     {
         enemy.EnemyDead -= OnEnemyDied;
         _enemies.Remove(enemy);
 
-        CheckActiveEnemies();
+        CheckExistenceOfEnemies();
     }
 
-    private void CheckActiveEnemies()
+    private void CheckExistenceOfEnemies()
     {
         if (_enemies.Count == 0)
         {

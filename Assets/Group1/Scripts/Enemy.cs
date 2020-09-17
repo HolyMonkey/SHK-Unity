@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     private Player _player;
 
-    public UnityAction<Enemy> EnemyDead;
+    public event UnityAction<Enemy> EnemyDead;
 
     private void Update()
     {

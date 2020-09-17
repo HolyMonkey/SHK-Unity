@@ -8,8 +8,6 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Player _player;
-    private Vector2 _direction;
-
 
     private void Awake()
     {
@@ -18,8 +16,9 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        _direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 
     private void OnEnable()
@@ -32,17 +31,17 @@ public class PlayerMover : MonoBehaviour
         _player.SpeedBonusCaught -= OnSpeedBonusCaught;
     }
 
-    private void OnSpeedBonusCaught(float speedChange, float duration)
+    private void OnSpeedBonusCaught()
     {
-        StartCoroutine(ActivateSpeedBonus(speedChange, duration));
+        StartCoroutine(ActivateSpeedBonus());
     }
 
-    private IEnumerator ActivateSpeedBonus(float speedChange, float duration)
+    private IEnumerator ActivateSpeedBonus()
     {
-        _speed *= speedChange;
+        _speed *= _player.SpeedBonus;
 
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(_player.DurationOfSpeedBonus);
 
-        _speed /= speedChange;
+        _speed /= _player.SpeedBonus;
     }
 }

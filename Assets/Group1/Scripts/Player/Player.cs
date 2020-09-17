@@ -3,10 +3,16 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public event UnityAction<float, float> SpeedBonusCaught;
+    [SerializeField] private float _speedBonus;
+    [SerializeField] private float _durationOfSpeedBonus;
 
-    public void CatchSpeedBonus(float speedChange, float duration)
+    public float SpeedBonus => _speedBonus;
+    public float DurationOfSpeedBonus => _durationOfSpeedBonus;
+
+    public event UnityAction SpeedBonusCaught;
+
+    public void CatchSpeedBonus()
     {
-        SpeedBonusCaught?.Invoke(speedChange, duration);
+        SpeedBonusCaught?.Invoke();
     }
 }

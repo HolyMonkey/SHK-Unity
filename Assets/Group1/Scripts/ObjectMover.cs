@@ -11,7 +11,7 @@ public class ObjectMover : MonoBehaviour
 
     private void Start()
     {
-        SetRandomPosition();
+        CreateTargetPosition();
     }
 
     private void Update()
@@ -19,10 +19,10 @@ public class ObjectMover : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
 
         if (transform.position == _target)
-            SetRandomPosition();
+            CreateTargetPosition();
     }
 
-    private void SetRandomPosition()
+    private void CreateTargetPosition()
     {
         _target = Random.insideUnitCircle * _radius;
     }
