@@ -4,33 +4,43 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Menu
 {
-    [SerializeField] protected Button _playButton;
-    [SerializeField] protected Button _exitButton;
+    [SerializeField] private Button _playButton;
+    [SerializeField] private Button _exitButton;
 
-    public event UnityAction PlayButtonClickReached;
-    public event UnityAction ExitButtonClickReached;
+    private void Start()
+    {
+        Time.timeScale = 0;
+    }
 
     private void OnEnable()
     {
-        _playButton.onClick.AddListener(PlayButtonClick);
-        _exitButton.onClick.AddListener(ExitButtonClick);
+        _playButton.onClick.AddListener(StartGame);
+        _exitButton.onClick.AddListener(ExitGame);
     }
 
     private void OnDisable()
     {
-        _playButton.onClick.RemoveListener(PlayButtonClick);
-        _exitButton.onClick.RemoveListener(ExitButtonClick);
+        _playButton.onClick.RemoveListener(StartGame);
+        _exitButton.onClick.RemoveListener(ExitGame);
     }
 
-    private void PlayButtonClick()
+    private void StartGame()
     {
-        PlayButtonClickReached?.Invoke();
+        Time.timeScale = 1;
+        Close();
     }
 
-    private void ExitButtonClick()
+    private void ExitGame()
     {
-        ExitButtonClickReached?.Invoke();
+        Application.Quit();
+    }
+
+    public override void Close()
+    {
+        CanvasGroup.alpha = 0;
+        _playButton.interactable = false;
+        _exitButton.interactable = false;
     }
 }

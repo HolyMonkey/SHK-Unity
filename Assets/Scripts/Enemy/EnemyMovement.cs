@@ -8,20 +8,21 @@ public class EnemyMovement : MonoBehaviour
     private float _radius = 4;
     private float _acceleration = 2;
 
-
-    void Start()
+    private void Start()
     {
-       CreateTargetToMove();
+       CreateTarget();
     }
 
-    void Update()
+    private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _target, _acceleration * Time.deltaTime);
         if (transform.position == _target)
-            CreateTargetToMove();
+        {
+            CreateTarget();
+        }
     }
 
-    private void CreateTargetToMove()
+    private void CreateTarget()
     {
         _target = Random.insideUnitCircle * _radius;
     }

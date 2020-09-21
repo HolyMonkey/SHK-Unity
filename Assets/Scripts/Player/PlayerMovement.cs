@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private EnemiesContainer _enemiesContainer;
   
     private float _speed = 5;
+    private float _coefficientOfSpeedChange = 2;
 
     private void OnEnable()
     {
@@ -27,12 +28,16 @@ public class PlayerMovement : MonoBehaviour
 
     private float IncreaseSpeed()
     {
-        return _speed *= 2;
+        return _speed *= _coefficientOfSpeedChange;
     }
 
     private float ReduceSpeed()
     {
-        return _speed /= 2;
+        if (_speed > 5)
+        {
+            _speed /= _coefficientOfSpeedChange;
+        }
+        return _speed;
     }
 
     private void GetIncreaseSpeed()
@@ -42,5 +47,10 @@ public class PlayerMovement : MonoBehaviour
     private void GetReduceSpeed()
     {
         ReduceSpeed();
+    }
+
+    public void ResetSpeed()
+    {
+        _speed = 5;
     }
 }

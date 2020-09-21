@@ -1,22 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Spawner : ObjectPool
 {
     [SerializeField] List<GameObject> _templates;
-    [SerializeField] private Transform _parentForTemplates;
-    
 
-    private void Start()
+    private void Awake()
     {
         foreach (var template in _templates)
         {
             Initialized(template);
             ResetEnemiesPosition();
         }
-        
     }
 
     public void ResetEnemiesPosition()

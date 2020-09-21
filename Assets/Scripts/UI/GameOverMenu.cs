@@ -4,33 +4,55 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class GameOverMenu : MonoBehaviour
+public class GameOverMenu : Menu
 {
-    [SerializeField] protected Button _restartButton;
-    [SerializeField] protected Button _exitButton;
+    [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _exitButton;
 
-    public UnityAction RestartButtonClickReached;
-    public UnityAction ExitButtonClickReached;
+    public event UnityAction GameRestarted;
+
+    private void Start()
+    {
+        CanvasGroup.blocksRaycasts = false;
+    }
 
     private void OnEnable()
     {
-        _restartButton.onClick.AddListener(RestartButtonClick);
-        _exitButton.onClick.AddListener(ExitButtonClick);
+        _restartButton.onClick.AddListener(RestartGame);
+        _exitButton.onClick.AddListener(ExitGame);
     }
 
     private void OnDisable()
     {
-        _restartButton.onClick.RemoveListener(RestartButtonClick);
-        _exitButton.onClick.RemoveListener(ExitButtonClick);
+        _restartButton.onClick.RemoveListener(RestartGame);
+        _exitButton.onClick.RemoveListener(ExitGame);
     }
 
-    private void RestartButtonClick()
+    private void ExitGame()
     {
-        RestartButtonClickReached?.Invoke();
+        Application.Quit();
     }
 
-    private void ExitButtonClick()
+    private void RestartGame()
     {
-        ExitButtonClickReached?.Invoke();
+        GameRestarted?.Invoke();
+        Time.timeScale = 1;
+        Close();
+    }
+
+    public void Open()
+    {
+        Time.timeScale = 0;
+        CanvasGroup.blocksRaycasts = true;
+        CanvasGroup.alpha = 1;
+        _restartButton.interactable = true;
+        _exitButton.interactable = true;
+    }
+
+    public override void Close()
+    {
+        CanvasGroup.alpha = 0;
+        _restartButton.interactable = false;;
+        _exitButton.interactable = false;
     }
 }

@@ -5,21 +5,21 @@ using UnityEngine.Events;
 
 public class EnemiesContainer : MonoBehaviour
 {
-    public event UnityAction PowerUpTimeStarted;
-    public event UnityAction PowerUpTimeEnded;
-
-    public event UnityAction AllDie;
-    private int _numberOfDeadEnemies;
-   
     private Enemy[] _enemies;
     private PowerUp[] _powerUps;
+    private int _liveEnemies;
+
+    public event UnityAction PowerUpTimeStarted;
+    public event UnityAction PowerUpTimeEnded;
+    public event UnityAction AllDie;
 
     private void OnEnable()
     {
         _enemies = gameObject.GetComponentsInChildren<Enemy>();
+        _liveEnemies = _enemies.Length;
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer += CountDeadEnemies;
+            enemy.CollisionWithPlayer += CountLiveEnemies;
         }
         _powerUps = gameObject.GetComponentsInChildren<PowerUp>();
         foreach (var powerUp in _powerUps)
@@ -32,7 +32,7 @@ public class EnemiesContainer : MonoBehaviour
     {
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer -= CountDeadEnemies;
+            enemy.CollisionWithPlayer -= CountLiveEnemies;
         }
         foreach (var powerUp in _powerUps)
         {
@@ -40,10 +40,10 @@ public class EnemiesContainer : MonoBehaviour
         }
     }
 
-    private void CountDeadEnemies()
+    private void CountLiveEnemies()
     {
-        _numberOfDeadEnemies++;
-        if (_numberOfDeadEnemies == _enemies.Length)
+        _liveEnemies--;
+        if (_liveEnemies == 0)
         {
             AllDie?.Invoke();
         }
@@ -59,5 +59,10 @@ public class EnemiesContainer : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         PowerUpTimeEnded?.Invoke();
+    }
+
+    public void ResetLiveEnemiesCount()
+    {
+        _liveEnemies = _enemies.Length;
     }
 }
