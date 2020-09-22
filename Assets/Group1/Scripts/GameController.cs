@@ -1,38 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController controller;
+  [SerializeField] private GameObject _endObject;
+  [SerializeField] private List<Enemy> _enemys;
 
-    public GameObject go;
-    public GameObject a;
-    public GameObject[] B;
+  private void End()
+  {
+    _endObject.SetActive(true);
+  }
 
-    // Start is called before the first frame update
-    void Start()
+  private void OnEnable()
+  {
+    foreach (Enemy elem in _enemys)
     {
-        controller = this;
+      elem.Dying += OnEmeyDying;
     }
+  }
 
-    public void End()
-    {
-        go.SetActive(true);
-    }
+  private void OnEmeyDying(Enemy enemy)
+  {
+    enemy.Dying -= OnEmeyDying;
+    _enemys.Remove(enemy);
 
-    // Update is called once per frame
-    void Update(){
-        foreach (var b in B)
-        {
-            if (b == null)
-                continue;
-
-                if (Vector3.Distance(a.gameObject.gameObject.GetComponent<Transform>().position, b.gameObject.gameObject.transform.position) < 0.2f)
-                {
-                    a.SendMessage("SendMEssage", b);
-                }
-
-        }
-    }
+    if (_enemys.Count == 0)
+      End();
+  }
 }
