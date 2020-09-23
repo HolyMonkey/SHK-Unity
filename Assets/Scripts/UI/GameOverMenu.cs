@@ -35,18 +35,17 @@ public class GameOverMenu : Menu
 
     private void RestartGame()
     {
-        GameRestarted?.Invoke();
         Time.timeScale = 1;
         Close();
     }
 
     public void Open()
     {
-        Time.timeScale = 0;
         CanvasGroup.blocksRaycasts = true;
         CanvasGroup.alpha = 1;
         _restartButton.interactable = true;
         _exitButton.interactable = true;
+        Time.timeScale = 0;
     }
 
     public override void Close()

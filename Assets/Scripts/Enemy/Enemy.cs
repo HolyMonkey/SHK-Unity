@@ -11,8 +11,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Player player))
         {
-            CollisionWithPlayer?.Invoke();
             gameObject.SetActive(false);
+            CollisionWithPlayer?.Invoke();
         }
     }
 }

@@ -10,7 +10,7 @@ public class ObjectPool : MonoBehaviour
 
     private List<GameObject> _pool = new List<GameObject>();
 
-    protected void Initialized(GameObject prefab)
+    public void Initialized(GameObject prefab)
     {
         for (int i = 0; i < _capacity; i++)
         {
@@ -20,7 +20,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    protected bool TryGetObject(out GameObject[] result)
+    public bool TryGetObject(out GameObject[] result)
     {
         GameObject[] container = new GameObject[_pool.Count];
         for (int i = 0; i < _pool.Count; i++)
@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour
         return result != null;
     }
 
-    public void ResetPool()
+    public void Reset()
     {
         foreach (var item in _pool)
         {
@@ -39,3 +39,4 @@ public class ObjectPool : MonoBehaviour
         }
     }
 }
+
