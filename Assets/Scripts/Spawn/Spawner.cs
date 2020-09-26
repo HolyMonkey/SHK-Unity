@@ -5,8 +5,8 @@ using UnityEngine;
 class Spawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _templates;
-
     [SerializeField] private ObjectPool _objectPool;
+
 
     private void Awake()
     {

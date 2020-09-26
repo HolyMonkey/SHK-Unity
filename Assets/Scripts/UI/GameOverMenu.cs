@@ -9,8 +9,6 @@ public class GameOverMenu : Menu
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _exitButton;
 
-    public event UnityAction GameRestarted;
-
     private void Start()
     {
         CanvasGroup.blocksRaycasts = false;
