@@ -6,15 +6,13 @@ using System.Linq;
 
 public class EndGameTrigger : MonoBehaviour
 {
-    [SerializeField] private EnemiesPool _enemiesPool;
-
     private Enemy[] _enemies;
 
     public event UnityAction GameEnded;
 
     private void Start()
     {
-        _enemies = _enemiesPool.GetEnemies();
+        _enemies = FindObjectsOfType<Enemy>();
         foreach (var enemy in _enemies)
         {
             enemy.CollisionWithPlayer += CallEndGameTrigger;

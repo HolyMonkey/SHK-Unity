@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject _container;
-    [SerializeField] private int _capacity;
-
+    private GameObject _container;
+    private int _capacity;
     private List<GameObject> _pool = new List<GameObject>();
 
     public void Initialized(GameObject prefab)
@@ -37,6 +36,13 @@ public class ObjectPool : MonoBehaviour
         {
             item.SetActive(true);
         }
+    } 
+
+    public ObjectPool GetPool(int capacity, GameObject container)
+    {
+        ObjectPool objectPool = new ObjectPool();
+        objectPool._capacity = capacity;
+        objectPool._container = container;
+        return objectPool;
     }
 }
-

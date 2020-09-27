@@ -5,11 +5,14 @@ using UnityEngine;
 class Spawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _templates;
-    [SerializeField] private ObjectPool _objectPool;
-
+   
+    private ObjectPool _objectPool;
 
     private void Awake()
     {
+        ObjectPool objectPool = new ObjectPool();
+        _objectPool = objectPool.GetPool(1, new GameObject("EnemiesPool"));
+
         foreach (var template in _templates)
         {
             _objectPool.Initialized(template);

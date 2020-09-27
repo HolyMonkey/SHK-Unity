@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class PowerUpTimer : MonoBehaviour
 {
-    [SerializeField] private EnemiesPool _enemiesPool;
-    
     private PowerUp[] _enemyWithPowerUp;
 
     public event UnityAction TimeStarted;
@@ -14,7 +12,7 @@ public class PowerUpTimer : MonoBehaviour
 
     private void Start()
     {
-        _enemyWithPowerUp = _enemiesPool.GetEnemiesWithPowerUp();
+        _enemyWithPowerUp = FindObjectsOfType<PowerUp>(); 
         foreach (var enemy in _enemyWithPowerUp)
         {
             enemy.ActivatePowerUp += StartPowerUpTimer;
