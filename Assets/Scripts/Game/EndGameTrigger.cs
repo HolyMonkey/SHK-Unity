@@ -15,11 +15,11 @@ public class EndGameTrigger : MonoBehaviour
         _enemies = FindObjectsOfType<Enemy>();
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer += CallEndGameTrigger;
+            enemy.CollisionWithPlayer += TryEndGameTrigger;
         }
     }
 
-    private void CallEndGameTrigger()
+    private void TryEndGameTrigger()
     {
         int liveEnemies = _enemies.Count(p => p.isActiveAndEnabled == true);
         if (liveEnemies == 0)

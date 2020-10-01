@@ -6,7 +6,7 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private GameOverMenu _gameOverMenu;
     [SerializeField] private EndGameTrigger _endGameTrigger;
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerMovement _player;
     [SerializeField] private Spawner _spawner;
 
     private void OnEnable()

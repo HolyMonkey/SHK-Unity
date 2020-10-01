@@ -2,24 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private PowerUpTimer _powerUpTimer;
-
     private float _speed = 5;
     private float _coefficientOfSpeedChange = 2;
-
-    private void OnEnable()
-    {
-        _powerUpTimer.TimeStarted += IncreaseSpeed;
-        _powerUpTimer.TimeEnded += ReduceSpeed;
-    }
-
-    private void OnDisable()
-    {
-        _powerUpTimer.TimeStarted -= IncreaseSpeed;
-        _powerUpTimer.TimeEnded -= ReduceSpeed;
-    }
 
     private void Update()
     {
@@ -27,32 +13,29 @@ public class Player : MonoBehaviour
         transform.position += moveDirection.normalized * _speed * Time.deltaTime;
     }
 
-    private float GetIncreaseSpeed()
+    private void IncreaseSpeed()
     {
-        return _speed *= _coefficientOfSpeedChange;
+        _speed *= _coefficientOfSpeedChange;
+        StartCoroutine(PowerUpTimeCountDown());
     }
 
-    private float GetReduceSpeed()
+    private void ReduceSpeed()
     {
         if (_speed > 5)
         {
             _speed /= _coefficientOfSpeedChange;
         }
-        return _speed;
     }
-
-    private void IncreaseSpeed()
-    {
-        GetIncreaseSpeed();
-    }
-    private void ReduceSpeed()
-    {
-        GetReduceSpeed();
-    }
-
+   
     private void ResetSpeed()
     {
         _speed = 5;
+    }
+
+    public IEnumerator PowerUpTimeCountDown()
+    {
+        yield return new WaitForSeconds(3);
+        ReduceSpeed();
     }
 
     private void ResetPosition()
@@ -64,5 +47,13 @@ public class Player : MonoBehaviour
     {
         ResetPosition();
         ResetSpeed();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out PowerUp powerUp))
+        {
+            IncreaseSpeed();
+        }
     }
 }

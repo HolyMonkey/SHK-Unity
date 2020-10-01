@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Player player))
+        if (collision.gameObject.TryGetComponent(out PlayerMovement player))
         {
             gameObject.SetActive(false);
             CollisionWithPlayer?.Invoke();
