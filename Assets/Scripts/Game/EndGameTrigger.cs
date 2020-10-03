@@ -10,16 +10,24 @@ public class EndGameTrigger : MonoBehaviour
 
     public event UnityAction GameEnded;
 
-    private void Start()
+    private void OnEnable()
     {
         _enemies = FindObjectsOfType<Enemy>();
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer += TryEndGameTrigger;
+            enemy.CollisionWithPlayer += TryInvokeEndGameTrigger;
         }
     }
 
-    private void TryEndGameTrigger()
+    private void OnDisable()
+    {
+        foreach (var enemy in _enemies)
+        {
+            enemy.CollisionWithPlayer -= TryInvokeEndGameTrigger;
+        }
+    }
+
+    private void TryInvokeEndGameTrigger()
     {
         int liveEnemies = _enemies.Count(p => p.isActiveAndEnabled == true);
         if (liveEnemies == 0)

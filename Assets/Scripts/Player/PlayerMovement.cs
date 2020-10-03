@@ -16,15 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private void IncreaseSpeed()
     {
         _speed *= _coefficientOfSpeedChange;
-        StartCoroutine(PowerUpTimeCountDown());
-    }
-
-    private void ReduceSpeed()
-    {
-        if (_speed > 5)
-        {
-            _speed /= _coefficientOfSpeedChange;
-        }
+        StartCoroutine(LaunchPowerUpTimeCountDown());
     }
    
     private void ResetSpeed()
@@ -32,10 +24,13 @@ public class PlayerMovement : MonoBehaviour
         _speed = 5;
     }
 
-    public IEnumerator PowerUpTimeCountDown()
+    public IEnumerator LaunchPowerUpTimeCountDown()
     {
         yield return new WaitForSeconds(3);
-        ReduceSpeed();
+        if (_speed > 5)
+        {
+            _speed /= _coefficientOfSpeedChange;
+        }
     }
 
     private void ResetPosition()
