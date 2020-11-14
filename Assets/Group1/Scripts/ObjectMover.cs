@@ -16,7 +16,7 @@ public class ObjectMover : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, 2 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
 
         if (transform.position == _targetPosition)
             _targetPosition = Random.insideUnitCircle * _radiusOfTargetPositions;
