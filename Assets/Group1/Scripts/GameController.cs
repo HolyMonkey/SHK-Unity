@@ -4,35 +4,28 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController controller;
+    [SerializeField]
+    private GameObject blackCurtain;
+    [SerializeField]
+    private List<Enemy> enemies;
 
-    public GameObject go;
-    public GameObject a;
-    public GameObject[] B;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        controller = this;
-    }
-
-    public void End()
-    {
-        go.SetActive(true);
-    }
-
-    // Update is called once per frame
-    void Update(){
-        foreach (var b in B)
+        foreach (var enemy in enemies)
         {
-            if (b == null)
-                continue;
-
-                if (Vector3.Distance(a.gameObject.gameObject.GetComponent<Transform>().position, b.gameObject.gameObject.transform.position) < 0.2f)
-                {
-                    a.SendMessage("SendMEssage", b);
-                }
-
+            enemy.Destroyed += OnEnemyDestroyed;
         }
+    }
+
+    private void EndGame()
+    {
+        blackCurtain.SetActive(true);
+    }
+
+    private void OnEnemyDestroyed(Enemy sender)
+    {
+        enemies.Remove(sender);
+        if (enemies.Count == 0)
+            EndGame();
     }
 }
