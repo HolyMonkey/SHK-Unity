@@ -17,6 +17,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         else if (collision.TryGetComponent(out SpeedBooster speedBooster))
         {
             BoostCollected?.Invoke(speedBooster);
+            Destroy(speedBooster.gameObject);
         }
     }
 }
