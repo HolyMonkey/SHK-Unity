@@ -6,33 +6,37 @@ public class GameController : MonoBehaviour
 {
     public static GameController controller;
 
-    public GameObject go;
-    public GameObject a;
-    public GameObject[] B;
+    [SerializeField] private GameObject _gameOverScreen;
+    [SerializeField] private Player _player;
+    [SerializeField] private Enemy[] _enemies;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         controller = this;
     }
 
-    public void End()
-    {
-        go.SetActive(true);
-    }
-
-    // Update is called once per frame
-    void Update(){
-        foreach (var b in B)
+    private void Update(){
+        foreach (var enemy in _enemies)
         {
-            if (b == null)
+            if (enemy == null)
                 continue;
 
-                if (Vector3.Distance(a.gameObject.gameObject.GetComponent<Transform>().position, b.gameObject.gameObject.transform.position) < 0.2f)
+                if (Vector3.Distance(_player.transform.position, enemy.transform.position) < 0.2f)
                 {
-                    a.SendMessage("SendMEssage", b);
+                    _player.SendMessage("SendMEssage", enemy);
                 }
 
         }
+
+        if (_enemies.Length == 0)
+        {
+            GameOver();
+        }
+
+    }
+
+    public void GameOver()
+    {
+        _gameOverScreen.SetActive(true);
     }
 }
