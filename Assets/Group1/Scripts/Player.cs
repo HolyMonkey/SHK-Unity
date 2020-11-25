@@ -4,48 +4,23 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    public bool timer;
-    public float time;
+    [SerializeField] private float _checkRadius;
 
-    private void Update(){
-        if (timer)
-        {
-            time -= Time.deltaTime;
-            if(time < 0)
-            {
-                timer = false;
-                _speed /= 2;
-            }
-        }
+    public float CheckRadius => _checkRadius;
 
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(0, _speed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(0, -_speed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(-_speed * Time.deltaTime, 0, 0);
-
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(_speed * Time.deltaTime, 0, 0);
+    private void Update()
+    {
+        Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
-    public void SendMEssage(GameObject b)
+    private void Move(float axisX, float axisY)
     {
+        float currentSpeed = _speed * Time.deltaTime;
+        transform.Translate(axisX * currentSpeed, axisY * currentSpeed, 0);
+    }
 
-
-        if(b.name == "enemy")
-        {
-            Destroy(b);
-        }if(b.name == "speed")
-        {
-            _speed *= 2;
-            timer = true;
-            time = 2;
-
-
-
-        }
+    public void DoubleCheckRadius()
+    {
+        _checkRadius *= 2;
     }
 }
