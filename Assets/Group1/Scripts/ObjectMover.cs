@@ -9,11 +9,6 @@ public class ObjectMover : MonoBehaviour
 
     private Vector3 _targetPosition;
 
-    private void Start()
-    {
-        _targetPosition = Random.insideUnitCircle * _radiusOfTargetPositions;
-    }
-
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _moveSpeed * Time.deltaTime);

@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boostValue: 2
-  _boostTime: 3
+  _boostTime: 5
 --- !u!114 &266227085350272271
 MonoBehaviour:
   m_ObjectHideFlags: 0

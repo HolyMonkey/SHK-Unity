@@ -5,16 +5,17 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy[] _enemies;
+    [SerializeField] private Enemy _enemyPrefab;
+    [SerializeField] private int _enemyCount;
     [SerializeField] private float _spawnRadius;
 
     public event UnityAction<Enemy> EnemySpawned;
 
     private void Start()
     {
-        for (int i = 0; i < _enemies.Length; i++)
+        for (int i = 0; i < _enemyCount; i++)
         {
-            Enemy enemy = Instantiate(_enemies[i], Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
+            Enemy enemy = Instantiate(_enemyPrefab, Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
             EnemySpawned?.Invoke(enemy);
         }
     }

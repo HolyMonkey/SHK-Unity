@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerCollisionHandler : MonoBehaviour
 {
     public event UnityAction<Enemy> EnemyDead;
-    public event UnityAction<SpeedBooster> BoostCollected;
+    public event UnityAction<SpeedBooster> BoosterCollected;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +16,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         }
         else if (collision.TryGetComponent(out SpeedBooster speedBooster))
         {
-            BoostCollected?.Invoke(speedBooster);
+            BoosterCollected?.Invoke(speedBooster);
             Destroy(speedBooster.gameObject);
         }
     }

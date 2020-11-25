@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BoostSpawner : MonoBehaviour
 {
-    [SerializeField] private SpeedBooster[] _boosters;
+    [SerializeField] private SpeedBooster _boosterPrefab;
+    [SerializeField] private int _boosterCount;
     [SerializeField] private float _spawnRadius;
 
     private void Start()
     {
-        for (int i = 0; i < _boosters.Length; i++)
+        for (int i = 0; i < _boosterCount; i++)
         {
-            SpeedBooster booster = Instantiate(_boosters[i], Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
+            SpeedBooster booster = Instantiate(_boosterPrefab, Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
         }
     }
 }
