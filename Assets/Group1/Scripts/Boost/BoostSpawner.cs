@@ -13,6 +13,7 @@ public class BoostSpawner : MonoBehaviour
         for (int i = 0; i < _boosterCount; i++)
         {
             SpeedBooster booster = Instantiate(_boosterPrefab, Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
+            booster.GetComponent<ObjectMover>().SetNewTargetPosition();
         }
     }
 }

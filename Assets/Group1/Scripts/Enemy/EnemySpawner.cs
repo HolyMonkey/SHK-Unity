@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < _enemyCount; i++)
         {
             Enemy enemy = Instantiate(_enemyPrefab, Random.insideUnitCircle * _spawnRadius, Quaternion.identity);
+            enemy.GetComponent<ObjectMover>().SetNewTargetPosition();
             EnemySpawned?.Invoke(enemy);
         }
     }
