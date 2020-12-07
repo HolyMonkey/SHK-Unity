@@ -567,6 +567,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6d0074e725a114e850d2e604fe4b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1823717126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823717128}
+  - component: {fileID: 1823717127}
+  m_Layer: 0
+  m_Name: 'BoostSpawner '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1823717127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823717126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc5f088f8265684eb939b6563a2aa8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: 2806448563756570646, guid: 8b76a4bc19fa5fc43b0a4362c2868761,
+    type: 3}
+  _count: 2
+  _radius: 4
+--- !u!4 &1823717128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823717126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2090246141
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,9 +624,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2090246142}
   - component: {fileID: 2090246143}
-  - component: {fileID: 2090246144}
   m_Layer: 0
-  m_Name: ObjectSpawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -608,26 +654,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2090246141}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ab05e710767614c93b5f0c5e9967b9, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc5f088f8265684eb939b6563a2aa8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 4284470175453967083, guid: ccdff97ee37cc8347b395a9ff5a74e5f,
+  _template: {fileID: 6893648053549731473, guid: ccdff97ee37cc8347b395a9ff5a74e5f,
     type: 3}
-  _enemyCount: 10
-  _spawnRadius: 5
---- !u!114 &2090246144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090246141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a81b4988fc802ad45af5627be11f1c0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boosterPrefab: {fileID: 6485840507547801351, guid: 8b76a4bc19fa5fc43b0a4362c2868761,
-    type: 3}
-  _boosterCount: 2
-  _spawnRadius: 5
+  _count: 10
+  _radius: 4

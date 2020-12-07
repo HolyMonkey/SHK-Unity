@@ -14,7 +14,6 @@ public class PlayerMover : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(BoostMovespeed());
         _collisionHandler = GetComponent<PlayerCollisionHandler>();
     }
 
@@ -40,23 +39,16 @@ public class PlayerMover : MonoBehaviour
     {
         _boostTime += booster.BoostTime;
         _boostModifier = booster.BoostValue;
+        StartCoroutine(BoostMovespeed());
     }
 
     private IEnumerator BoostMovespeed()
     {
-        while(true)
+        while (_boostTime > 0)
         {
-            if(_boostTime > 0)
-            {
-                yield return new WaitForSeconds(1);
-                _boostTime--;
-            }
-            else
-            {
-                _boostModifier = 1;
-                _boostTime = 0;
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForSeconds(1);
+            _boostTime--;
         }
+        _boostModifier = 1;
     }
 }

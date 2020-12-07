@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class EnemyCounter : MonoBehaviour
 {
     [SerializeField] private PlayerCollisionHandler _playerCollisionHandler;
-    [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private ObjectSpawner _enemySpawner;
 
     public event UnityAction GameEnded; 
 

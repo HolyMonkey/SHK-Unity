@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class ObjectMover : MonoBehaviour
 {
-    [SerializeField] private float _radiusOfTargetPositions;
+    [SerializeField] private float _movementRadius;
     [SerializeField] private float _moveSpeed;
 
     private Vector3 _targetPosition;
+
+    private void Start()
+    {
+        SetNewTargetPosition();
+    }
 
     private void Update()
     {
@@ -19,6 +24,6 @@ public class ObjectMover : MonoBehaviour
 
     public void SetNewTargetPosition()
     {
-        _targetPosition = Random.insideUnitCircle * _radiusOfTargetPositions;
+        _targetPosition = Random.insideUnitCircle * _movementRadius;
     }
 }
