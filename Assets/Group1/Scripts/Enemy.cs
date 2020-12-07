@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _speed;
-    private float _moveRadius;
+    private float _speed = 2f;
+    private float _moveRadius = 4f;
     private Vector3 _nextPosition;
 
     private void Start()
     {
-        _speed = 2f;
-        _moveRadius = 4f;
-        _nextPosition = Random.insideUnitCircle * _moveRadius;
+        SetNextPosition();
     }
 
     private void Update()
@@ -25,6 +23,11 @@ public class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _nextPosition, _speed * Time.deltaTime);
 
         if (transform.position == _nextPosition)
-            _nextPosition = Random.insideUnitCircle * _moveRadius;
+            SetNextPosition();
     }
+
+    private void SetNextPosition()
+    {
+        _nextPosition = Random.insideUnitCircle * _moveRadius;
+    } 
 }
