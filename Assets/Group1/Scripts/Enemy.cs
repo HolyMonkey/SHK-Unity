@@ -6,9 +6,11 @@ using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    private float enemySpeed = 2, moveRange = 4;
+    [SerializeField] private float enemySpeed = 2;
+    [SerializeField] private float moveRange = 4;
+
     private Vector3 target;
+
     public event Action<Enemy> Destroyed;
 
     private void Start()
