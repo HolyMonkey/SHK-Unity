@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _distance;
+    [SerializeField] private float _radius = 4;
+    [SerializeField] private float _speedBoost;
 
-    private Vector3 _targetPosition;
+    public float SpeedBoost => _speedBoost;
+
+    private Vector3 _target;
 
     private void Start()
     {
@@ -15,9 +18,9 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target, Time.deltaTime);
 
-        if (transform.position == _targetPosition)
+        if (transform.position == _target)
         {
             GetNewPosition();
         }
@@ -25,6 +28,6 @@ public class Enemy : MonoBehaviour
 
     private Vector3 GetNewPosition()
     {
-        return _targetPosition = Random.insideUnitCircle * _distance;
+        return _target = Random.insideUnitCircle * _radius;
     }
 }

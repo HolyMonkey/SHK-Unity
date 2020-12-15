@@ -131,8 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 141422279}
   - component: {fileID: 141422278}
-  - component: {fileID: 141422277}
   - component: {fileID: 141422276}
+  - component: {fileID: 141422277}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -178,7 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f7df4705b7dae48944a39b48934484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 4
+  _radius: 4
+  _speedBoost: 1
 --- !u!212 &141422278
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -524,8 +525,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1578050040}
   - component: {fileID: 1578050039}
-  - component: {fileID: 1578050038}
   - component: {fileID: 1578050037}
+  - component: {fileID: 1578050038}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -571,7 +572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f7df4705b7dae48944a39b48934484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 4
+  _radius: 4
+  _speedBoost: 1
 --- !u!212 &1578050039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -646,8 +648,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1754708964}
   - component: {fileID: 1754708963}
-  - component: {fileID: 1754708962}
   - component: {fileID: 1754708961}
+  - component: {fileID: 1754708962}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -693,7 +695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f7df4705b7dae48944a39b48934484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 4
+  _radius: 4
+  _speedBoost: 1
 --- !u!212 &1754708963
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -771,6 +774,8 @@ GameObject:
   - component: {fileID: 1761935012}
   - component: {fileID: 1761935013}
   - component: {fileID: 1761935014}
+  - component: {fileID: 1761935016}
+  - component: {fileID: 1761935015}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -854,9 +859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dede9e7d6741aea4cb07b98da83cc6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _boostTime: 2
-  _speedBoost: 2
 --- !u!58 &1761935013
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -894,6 +896,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1761935015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761935009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21e55638b0f4554093d7a383968c748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boostTime: 2
+--- !u!114 &1761935016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761935009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa0a97be53a3fd449be0b1b10be180b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+  _speedBooster: {fileID: 1761935015}
 --- !u!1 &2083640146
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,9 +933,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2083640148}
   - component: {fileID: 2083640147}
-  - component: {fileID: 2083640150}
   - component: {fileID: 2083640149}
-  - component: {fileID: 2083640151}
+  - component: {fileID: 2083640150}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1016,16 +1044,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f7df4705b7dae48944a39b48934484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 4
---- !u!114 &2083640151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083640146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fef21ff95ab53f419603b4c17fc5ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _radius: 4
+  _speedBoost: 2
