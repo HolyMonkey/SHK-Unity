@@ -5,9 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _radius = 4;
-    [SerializeField] private float _speedBoost;
-
-    public float SpeedBoost => _speedBoost;
 
     private Vector3 _target;
 

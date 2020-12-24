@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public event UnityAction<Enemy> DestroiedEnemy;
+    public event UnityAction<Enemy> CheckEndGame;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
         {
             Destroy(enemy.gameObject);
 
-            DestroiedEnemy?.Invoke(enemy);
+            CheckEndGame?.Invoke(enemy);
         }
     }
 }

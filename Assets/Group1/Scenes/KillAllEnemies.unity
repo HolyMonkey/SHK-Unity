@@ -179,7 +179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 4
-  _speedBoost: 1
 --- !u!212 &141422278
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -573,7 +572,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 4
-  _speedBoost: 1
 --- !u!212 &1578050039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -696,7 +694,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 4
-  _speedBoost: 1
 --- !u!212 &1754708963
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -775,7 +772,6 @@ GameObject:
   - component: {fileID: 1761935013}
   - component: {fileID: 1761935014}
   - component: {fileID: 1761935016}
-  - component: {fileID: 1761935015}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -896,19 +892,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1761935015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761935009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21e55638b0f4554093d7a383968c748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boostTime: 2
 --- !u!114 &1761935016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,7 +905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _speedBooster: {fileID: 1761935015}
 --- !u!1 &2083640146
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +917,7 @@ GameObject:
   - component: {fileID: 2083640147}
   - component: {fileID: 2083640149}
   - component: {fileID: 2083640150}
+  - component: {fileID: 2083640151}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1045,4 +1028,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 4
+--- !u!114 &2083640151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083640146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21e55638b0f4554093d7a383968c748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _speedBoost: 2
+  _boostTime: 4
