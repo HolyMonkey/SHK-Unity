@@ -2,36 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class GameController : MonoBehaviour
+public class EnemyCounter : MonoBehaviour
 {
-    [SerializeField] private GameObject _gameOverScreen;
     [SerializeField] private Player _player;
+
+    public event UnityAction GameOver;
 
     private List<Enemy> _enemies = new List<Enemy>();
 
     private void Start()
-    {
-        _gameOverScreen.SetActive(false);
-
+    { 
         _enemies = FindObjectsOfType<Enemy>().ToList();
     }
+
     private void OnEnable()
     {
-        _player.CheckEndGame += OnCheckEndGame;
+        _player.EnemyDestroyed += OnEnemyDestroyed;
     }
 
     private void OnDisable()
     {
-        _player.CheckEndGame -= OnCheckEndGame;
+        _player.EnemyDestroyed -= OnEnemyDestroyed;
     }
-    private void OnCheckEndGame(Enemy enemy)
+
+    private void OnEnemyDestroyed(Enemy enemy)
     {
         _enemies.Remove(enemy);
+
+        CheckEndGame();
+    }
+
+    private void CheckEndGame()
+    {
         if (_enemies.Count == 0)
         {
-            Time.timeScale = 0;
-            _gameOverScreen.SetActive(true);
+            GameOver?.Invoke();
         }
     }
 }

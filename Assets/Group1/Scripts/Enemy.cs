@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private Vector3 GetNewPosition()
+    private void GetNewPosition()
     {
-        return _target = Random.insideUnitCircle * _radius;
+        _target = Random.insideUnitCircle * _radius;
     }
 }
