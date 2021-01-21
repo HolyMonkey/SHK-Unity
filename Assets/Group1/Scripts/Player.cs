@@ -5,43 +5,44 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _boostSpeedTime;
-    [SerializeField] private float _boostSpeedQuoutinant;
     [SerializeField] private GameObject _menu;
     [SerializeField] private Rigidbody2D _rigidbody;
 
-    public float BoostSpeedTime => _boostSpeedTime;
-
     private int _killedEnemies = 0;
-    private int _startEnemies;
-
-    private void Start()
-    {
-        _startEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
-    }
+    private int _startEnemiesNumber;
 
     private void Update()
     {
-        _rigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        _rigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * _moveSpeed * Time.deltaTime;
     }
 
-    public void PlusKilledEnemies()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        _killedEnemies++;
-
-        if (_killedEnemies >= _startEnemies)
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            _menu.SetActive(true);
-            enabled = false;
+            _killedEnemies++;
+
+            if (_killedEnemies >= _startEnemiesNumber)
+            {
+                _menu.SetActive(true);
+                enabled = false;
+            }
+
+            Destroy(gameObject);
         }
     }
 
-    public IEnumerator BoostSpeed(float workingTime)
+    public void SetEnemiesNumber(int enemiesNumber)
     {
-        _moveSpeed *= 2;
+        _startEnemiesNumber = enemiesNumber;
+    }
 
-        yield return new WaitForSeconds(workingTime);
+    public IEnumerator BoostSpeed(float duration, float multiplier)
+    {
+        _moveSpeed *= multiplier;
 
-        _moveSpeed /= 2;
+        yield return new WaitForSeconds(duration);
+
+        _moveSpeed /= multiplier;
     }
 }

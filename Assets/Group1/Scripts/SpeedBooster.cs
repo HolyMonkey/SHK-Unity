@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBooster : Follower
+public class SpeedBooster : MonoBehaviour
 {
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private float _boostDuration;
+    [SerializeField] private float _boostSpeedMultiplier;
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
-            StartCoroutine(player.BoostSpeed(player.BoostSpeedTime));
+            StartCoroutine(player.BoostSpeed(_boostDuration, _boostSpeedMultiplier));
         }
     }
 }
