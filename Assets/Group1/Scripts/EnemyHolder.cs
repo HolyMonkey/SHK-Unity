@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyHolder : MonoBehaviour
 {
-    [SerializeField] Player _player;
+    [SerializeField] private Player _player;
 
     private void Start()
     {
