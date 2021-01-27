@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyOwner : MonoBehaviour
+public class LevelFinisher : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
 

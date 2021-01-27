@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            GetComponentInParent<EnemyOwner>().AddKilledEnemy();
+            GetComponentInParent<LevelFinisher>().AddKilledEnemy();
 
             Destroy(gameObject);
         }
