@@ -5,14 +5,6 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 2;
 
-    private float _defaultSpeed;
-    private Coroutine _boostResetCoroutine;
-
-    private void Awake()
-    {
-        _defaultSpeed = _speed;
-    }
-
     private void Update()
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0).normalized;
@@ -25,22 +17,13 @@ public class Player : MonoBehaviour
             enemy.Die();
 
         if (collision.TryGetComponent(out SpeedBoost boost))
-            BoostSpeed(boost.Multiplier, boost.Duration);
+            StartCoroutine(BoostSpeed(boost.Multiplier, boost.Duration));
     }
 
-    private IEnumerator ResetSpeed(float delay)
+    public IEnumerator BoostSpeed(float multiplier, float duration)
     {
-        yield return new WaitForSeconds(delay);
-        _speed = _defaultSpeed;
-        _boostResetCoroutine = null;
-    }
-
-    private void BoostSpeed(float multiplier, float duration)
-    {
-        if (_boostResetCoroutine != null)
-            StopCoroutine(_boostResetCoroutine);
-
-        _speed = _defaultSpeed * multiplier;
-        _boostResetCoroutine = StartCoroutine(ResetSpeed(duration));
+        _speed *= multiplier;
+        yield return new WaitForSeconds(duration);
+        _speed /= multiplier;
     }
 }

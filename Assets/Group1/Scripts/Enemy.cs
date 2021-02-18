@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MoveIncideCircle
+public class Enemy : MoveInsideCircle
 {
     public UnityAction<Enemy> Died;
 
