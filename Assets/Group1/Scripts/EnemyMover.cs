@@ -14,14 +14,19 @@ public class EnemyMover : MonoBehaviour
 
     private void Start()
     {
-        _target = Random.insideUnitCircle * _radius;
+        _target = GetTargetPosition();
     }
 
     private void Update()
     {
-        _rigidbody.velocity = (_target - transform.position).normalized * _speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
 
         if (transform.position == _target)
-            _target = Random.insideUnitCircle * _radius;
+            _target = GetTargetPosition();
+    }
+
+    private Vector2 GetTargetPosition()
+    {
+        return Random.insideUnitCircle * _radius;
     }
 }

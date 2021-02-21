@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _rigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * _moveSpeed * Time.deltaTime;
+        _rigidbody.velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * _moveSpeed;
     }
 
     public IEnumerator BoostSpeed(float duration, float multiplier)
