@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private float _speed;
     [SerializeField] private float _radius;
 

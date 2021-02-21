@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class SpeedBooster : MonoBehaviour
 {
     [SerializeField] private float _boostDuration;
@@ -12,6 +13,8 @@ public class SpeedBooster : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
             StartCoroutine(player.BoostSpeed(_boostDuration, _boostSpeedMultiplier));
+
+            Destroy(gameObject);
         }
     }
 }

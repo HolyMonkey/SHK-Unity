@@ -20,7 +20,12 @@ public class LevelFinisher : MonoBehaviour
         Enemy.Singleton.DeathEvent += AddKilledEnemy;
     }
 
-    public void AddKilledEnemy(Enemy enemy)
+    private void OnDisable()
+    {
+        Enemy.Singleton.DeathEvent -= AddKilledEnemy;
+    }
+
+    private void AddKilledEnemy(Enemy enemy)
     {
         if (_deadEnemies.Count >= _maxEnemiesNumber)
         {
