@@ -1,32 +1,35 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class LevelFinisher : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
 
     private int _maxEnemiesNumber;
+
     private List<Enemy> _deadEnemies;
+    private List<Enemy> _aliveEnemies;
 
     private void Start()
     {
         _deadEnemies = new List<Enemy>();
-        _maxEnemiesNumber = GetComponentsInChildren<Enemy>().Length;
+
+        _aliveEnemies = GetComponentsInChildren<Enemy>().ToList<Enemy>();
+        _maxEnemiesNumber = _aliveEnemies.Count;
+
+        foreach(Enemy enemy in _aliveEnemies)
+        {
+            enemy.Init(this);
+        }
     }
 
-    private void OnEnable()
-    {
-        Enemy.Singleton.DeathEvent += AddKilledEnemy;
-    }
 
-    private void OnDisable()
+    public void AddKilledEnemy(Enemy enemy)
     {
-        Enemy.Singleton.DeathEvent -= AddKilledEnemy;
-    }
+        _deadEnemies.Add(enemy);
 
-    private void AddKilledEnemy(Enemy enemy)
-    {
         if (_deadEnemies.Count >= _maxEnemiesNumber)
         {
             _menu.SetActive(true);
