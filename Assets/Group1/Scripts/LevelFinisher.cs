@@ -7,30 +7,34 @@ public class LevelFinisher : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
 
-    private int _maxEnemiesNumber;
-
-    private List<Enemy> _deadEnemies;
     private List<Enemy> _aliveEnemies;
 
     private void Start()
     {
-        _deadEnemies = new List<Enemy>();
-
         _aliveEnemies = GetComponentsInChildren<Enemy>().ToList<Enemy>();
-        _maxEnemiesNumber = _aliveEnemies.Count;
+    }
 
-        foreach(Enemy enemy in _aliveEnemies)
+    private void OnEnable()
+    {
+        foreach (Enemy enemy in _aliveEnemies)
         {
-            enemy.Init(this);
+            enemy.Died += AddKilledEnemy;
+        }
+    }
+    
+    private void OnDisable()
+    {
+        foreach (Enemy enemy in _aliveEnemies)
+        {
+            enemy.Died -= AddKilledEnemy;
         }
     }
 
-
-    public void AddKilledEnemy(Enemy enemy)
+    private void AddKilledEnemy(Enemy enemy)
     {
-        _deadEnemies.Add(enemy);
+        _aliveEnemies.Remove(enemy);
 
-        if (_deadEnemies.Count >= _maxEnemiesNumber)
+        if (_aliveEnemies.Count > 0)
         {
             _menu.SetActive(true);
             gameObject.SetActive(false);

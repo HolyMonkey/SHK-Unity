@@ -6,20 +6,17 @@ using UnityEngine.Events;
 [RequireComponent(typeof(EnemyMover))]
 public class Enemy : MonoBehaviour
 {
-    private LevelFinisher _levelFinisher;
+    public event OnDied Died;
 
-    public void Init(LevelFinisher levelFinisher)
-    {
-        _levelFinisher = levelFinisher;
-    }
+    public delegate void OnDied(Enemy sender);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _levelFinisher.AddKilledEnemy(this);
+            Died?.Invoke(this);
 
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
