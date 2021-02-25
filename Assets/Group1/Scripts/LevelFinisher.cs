@@ -34,7 +34,7 @@ public class LevelFinisher : MonoBehaviour
     {
         _aliveEnemies.Remove(enemy);
 
-        if (_aliveEnemies.Count > 0)
+        if (_aliveEnemies.Count <= 0)
         {
             _menu.SetActive(true);
             gameObject.SetActive(false);
