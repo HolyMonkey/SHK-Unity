@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndGame : MonoBehaviour
+public class GameFinish : MonoBehaviour
 {
     [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private GameObject _blackWindow;
@@ -11,18 +11,22 @@ public class EndGame : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1;
-        _spawner.StopGame += OnStopGame;
         _blackWindow.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        _spawner.AllEnemiesDied += OnAllEnemiesDied;
     }
 
     private void OnDisable()
     {
-        _spawner.StopGame -= OnStopGame;
+        _spawner.AllEnemiesDied -= OnAllEnemiesDied;
     }
 
-    private void OnStopGame()
+    private void OnAllEnemiesDied()
     {
-        _blackWindow.SetActive(true);
         Time.timeScale = 0;
+        _blackWindow.SetActive(true);
     }
 }

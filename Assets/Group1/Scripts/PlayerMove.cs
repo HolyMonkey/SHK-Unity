@@ -21,6 +21,6 @@ public class PlayerMove : MonoBehaviour
 
     private void OnMove(Vector2 move)
     {
-        transform.position += new Vector3(move.x*_speed, move.y*_speed, 0) * Time.deltaTime;
+        transform.position += new Vector3(move.x, move.y, 0) *_speed * Time.deltaTime;
     }
 }

@@ -5,33 +5,33 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public UnityAction StopGame;
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private int _enemyCount;
-    [SerializeField] private float _spawmRaius;
+    [SerializeField] private int _enemiesCount;
+    [SerializeField] private float _spawnRaius;
+    public UnityAction AllEnemiesDied;
 
     private void Start()
     {
-        for (int i = 0; i < _enemyCount; i++)
+        for (int i = 0; i < _enemiesCount; i++)
         {
-            Vector2 enemyPosition = Random.insideUnitCircle * _spawmRaius;
+            Vector2 enemyPosition = Random.insideUnitCircle * _spawnRaius;
             var enemy = Instantiate(_enemy, enemyPosition, Quaternion.identity,transform);
-            enemy.GetComponent<Enemy>().DeadEnemy += OnEnemyDie;
+            enemy.Dead += OnEnemyDie;
         }
     }
 
     private void OnEnemyDie(Enemy enemy)
     {
-        _enemyCount--;
+        _enemiesCount--;
         Unsubscribe(enemy);
     }
 
     private void Unsubscribe(Enemy enemy)
     {
-        enemy.DeadEnemy -= OnEnemyDie;
-        if (_enemyCount == 0)
+        enemy.Dead -= OnEnemyDie;
+        if (_enemiesCount == 0)
         {
-            StopGame?.Invoke();
+            AllEnemiesDied?.Invoke();
         }
     }
 }

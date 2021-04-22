@@ -529,8 +529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 5939016452993518057, guid: daef96166d2294a4baa5c1567cee4dff, type: 3}
-  _enemyCount: 5
-  _spawmRaius: 10
+  _enemiesCount: 6
+  _spawnRaius: 6
 --- !u!4 &1128170927
 Transform:
   m_ObjectHideFlags: 0
