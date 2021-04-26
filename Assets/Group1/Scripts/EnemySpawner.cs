@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemy;
+    [SerializeField] private List<Enemy> _enemies;
     [SerializeField] private int _enemiesCount;
     [SerializeField] private float _spawnRaius;
     public UnityAction AllEnemiesDied;
@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < _enemiesCount; i++)
         {
             Vector2 enemyPosition = Random.insideUnitCircle * _spawnRaius;
-            var enemy = Instantiate(_enemy, enemyPosition, Quaternion.identity,transform);
+            var enemy = Instantiate(_enemies[Random.Range(0,_enemies.Count)], enemyPosition, Quaternion.identity,transform);
             enemy.Dead += OnEnemyDie;
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private float _radius;
     [SerializeField] private float _speed;
@@ -32,10 +32,13 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Player>())
+        if (collision.TryGetComponent(out PlayerMove playerMove))
         {
+            TakeDamage(playerMove);
             Dead?.Invoke(this);
             Destroy(gameObject);
         }
     }
+
+    protected abstract void TakeDamage(PlayerMove playerMove);
 }
