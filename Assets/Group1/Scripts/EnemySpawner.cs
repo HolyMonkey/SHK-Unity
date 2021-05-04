@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector2 enemyPosition = Random.insideUnitCircle * _spawnRaius;
             var enemy = Instantiate(_enemies[Random.Range(0,_enemies.Count)], enemyPosition, Quaternion.identity,transform);
-            enemy.Dead += OnEnemyDie;
+            enemy.Dieing += OnEnemyDie;
         }
     }
 
@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Unsubscribe(Enemy enemy)
     {
-        enemy.Dead -= OnEnemyDie;
+        enemy.Dieing -= OnEnemyDie;
         if (_enemiesCount == 0)
         {
             AllEnemiesDied?.Invoke();

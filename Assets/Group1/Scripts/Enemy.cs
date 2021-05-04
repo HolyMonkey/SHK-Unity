@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private float _speed;
     private Vector2 _target;
-    public UnityAction<Enemy> Dead;
+    public event UnityAction<Enemy> Dieing;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour
         if (collision.TryGetComponent(out PlayerMove playerMove))
         {
             TakeDamage(playerMove);
-            Dead?.Invoke(this);
+            Dieing?.Invoke(this);
             Destroy(gameObject);
         }
     }
