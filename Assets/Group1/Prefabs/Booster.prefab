@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2283614168579603522}
   - component: {fileID: 3631302273475409455}
   - component: {fileID: -3794824488387092164}
+  - component: {fileID: 4299062179032313126}
   - component: {fileID: 4103240261241208064}
   m_Layer: 0
   m_Name: Booster
@@ -110,6 +111,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
+--- !u!114 &4299062179032313126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367558270043846577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f7df4705b7dae48944a39b48934484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 6
+  _speed: 6
 --- !u!114 &4103240261241208064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1e1beddbe6a8d4b9d45e276bc7a918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 6
-  _speed: 6
   _time: 2

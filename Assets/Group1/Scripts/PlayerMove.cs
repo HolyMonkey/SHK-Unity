@@ -26,7 +26,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnMove(Vector2 move)
     {
-        transform.position += new Vector3(move.x, move.y, 0) *_speed * Time.deltaTime;
+        transform.position += new Vector3(move.x, move.y, 0) * _speed * Time.deltaTime;
     }
 
     public void BoostSpeed(float boostTime)
@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator StartChangeSpeed(float boostTime)
     {
         var waitForOneSeconds = new WaitForSeconds(boostTime);
-        while (_speed!=_defaultSpeed)
+        while (_speed != _defaultSpeed)
         {
             yield return waitForOneSeconds;
             _speed -= _defaultSpeed;

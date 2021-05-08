@@ -5,26 +5,41 @@ using UnityEngine.UI;
 
 public class GameFinish : MonoBehaviour
 {
-    [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private GameObject _blackWindow;
+    private List<Enemy> _enemies = new List<Enemy>();
 
     private void Start()
     {
         Time.timeScale = 1;
         _blackWindow.SetActive(false);
+        AddEnemiesInWatchList();
     }
 
-    private void OnEnable()
+    private void AddEnemiesInWatchList()
     {
-        _spawner.AllEnemiesDied += OnAllEnemiesDied;
+        _enemies.AddRange(FindObjectsOfType<Enemy>());
+        foreach (var enemy in _enemies)
+        {
+            enemy.Dying += OnEnemyDie;
+        }
     }
 
-    private void OnDisable()
+    private void OnEnemyDie(Enemy enemy)
     {
-        _spawner.AllEnemiesDied -= OnAllEnemiesDied;
+        _enemies.Remove(enemy);
+        Unsubscribe(enemy);
     }
 
-    private void OnAllEnemiesDied()
+    private void Unsubscribe(Enemy enemy)
+    {
+        enemy.Dying -= OnEnemyDie;
+        if (_enemies.Count == 0)
+        {
+            AllEnemiesDied();
+        }
+    }
+
+    private void AllEnemiesDied()
     {
         Time.timeScale = 0;
         _blackWindow.SetActive(true);

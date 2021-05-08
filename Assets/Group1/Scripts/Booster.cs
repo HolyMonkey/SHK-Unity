@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Booster : Enemy
+[RequireComponent(typeof(EnemyMover))]
+[RequireComponent(typeof(BoxCollider2D))]
+public class Booster : MonoBehaviour
 {
     [SerializeField] private float _time;
-    protected override void TakeDamage(PlayerMove playerMove)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerMove.BoostSpeed(_time);
+        if (collision.TryGetComponent(out PlayerMove playerMove))
+        {
+            playerMove.BoostSpeed(_time);
+            Destroy(gameObject);
+        }
     }
 }
