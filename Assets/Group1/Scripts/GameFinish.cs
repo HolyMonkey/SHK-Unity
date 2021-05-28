@@ -12,10 +12,10 @@ public class GameFinish : MonoBehaviour
     {
         Time.timeScale = 1;
         _blackWindow.SetActive(false);
-        AddEnemiesInWatchList();
+        AddAliveEnemies();
     }
 
-    private void AddEnemiesInWatchList()
+    private void AddAliveEnemies()
     {
         _enemies.AddRange(FindObjectsOfType<Enemy>());
         foreach (var enemy in _enemies)
@@ -28,11 +28,16 @@ public class GameFinish : MonoBehaviour
     {
         _enemies.Remove(enemy);
         Unsubscribe(enemy);
+        CheckAliveEnemies();
     }
 
     private void Unsubscribe(Enemy enemy)
     {
         enemy.Dying -= OnEnemyDie;
+    }
+
+    private void CheckAliveEnemies()
+    {
         if (_enemies.Count == 0)
         {
             AllEnemiesDied();

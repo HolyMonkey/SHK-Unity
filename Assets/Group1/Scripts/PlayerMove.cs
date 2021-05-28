@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
         transform.position += new Vector3(move.x, move.y, 0) * _speed * Time.deltaTime;
     }
 
-    public void BoostSpeed(float boostTime)
+    public void Boost(float boostTime)
     {
         _speed += _defaultSpeed;
         if (_coroutine == null)

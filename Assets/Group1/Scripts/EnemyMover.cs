@@ -11,7 +11,7 @@ public class EnemyMover : MonoBehaviour
 
     private void Start()
     {
-        ChangeTarget();
+        ChooseRandomDestinationPoint();
     }
 
     private void Update()
@@ -19,11 +19,11 @@ public class EnemyMover : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
         if ((Vector2)transform.position == _target)
         {
-            ChangeTarget();
+            ChooseRandomDestinationPoint();
         }
     }
 
-    private void ChangeTarget()
+    private void ChooseRandomDestinationPoint()
     {
         _target = Random.insideUnitCircle * _radius;
     }

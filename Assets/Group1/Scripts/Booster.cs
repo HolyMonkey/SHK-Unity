@@ -12,7 +12,7 @@ public class Booster : MonoBehaviour
     {
         if (collision.TryGetComponent(out PlayerMove playerMove))
         {
-            playerMove.BoostSpeed(_time);
+            playerMove.Boost(_time);
             Destroy(gameObject);
         }
     }
