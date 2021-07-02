@@ -5,6 +5,7 @@ using UnityEngine;
 public class Booster : MonoBehaviour
 {
     [SerializeField] private float _time;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out PlayerMover mover))

@@ -9,7 +9,7 @@ public class PlayerMover : MonoBehaviour
 
     [SerializeField] private float _speed;
 
-    private float _defaultSpeed;
+    [SerializeField] private float _defaultSpeed;
     private Coroutine _coroutine;
 
     private void Start()
@@ -28,26 +28,23 @@ public class PlayerMover : MonoBehaviour
     public void Boost(float boostTime)
     {
         _speed += _defaultSpeed;
-        if (_coroutine == null)
-        {
-            _coroutine = StartCoroutine(StartChangeSpeed(boostTime));
-        }
+
+        _coroutine = StartCoroutine(StartChangeSpeed(boostTime));
+        
     }
 
     private IEnumerator StartChangeSpeed(float boostTime)
     {
-        var waitForOneSeconds = new WaitForSeconds(boostTime);
-        while (_speed != _defaultSpeed)
-        {
-            yield return waitForOneSeconds;
-            _speed -= _defaultSpeed;
-        }
-        EndChangeSpeed(_coroutine);
-    }
+        yield return new WaitForSeconds(boostTime);
 
-    private void EndChangeSpeed(Coroutine coroutine)
-    {
-        StopCoroutine(coroutine);
-        _coroutine = null;
+        _speed -= _defaultSpeed;
+
+        if (_speed == _defaultSpeed)
+        {
+            StopCoroutine(_coroutine);
+        }
+            
+
+        
     }
 }
