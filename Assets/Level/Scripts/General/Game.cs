@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class Game : MonoBehaviour
 {
-    public static GameController Constroller;
-    private const string Message = "SendMEssage";
+    private const string Message = "SendMessage";
 
-    [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject _endObject;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject[] _enemies;
 
-    private void Start()
-    {
-        Constroller = this;
-    }
-
     public void End()
     {
-        _target.SetActive(true);
+        _endObject.SetActive(true);
     }
 
     private void Update(){

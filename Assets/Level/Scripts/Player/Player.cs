@@ -2,12 +2,15 @@
 using System.Collections;
 
 [RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(Game))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private bool _timePassed;
     [SerializeField] private float _elapsedTime;
+    [SerializeField] private Game _game;
 
     private PlayerMover _playerMover;
+    
     private const string Enemy = "Enemy";
     private const string Speed = "speed";
 
@@ -32,17 +35,18 @@ public class Player : MonoBehaviour
 
         if (enemies.Length == 0)
         {
-            GameController.Constroller.End();
+            _game.End();
             enabled = false;
         }
     }
 
-    public void SendMEssage(GameObject other)
+    public void SendMessage(GameObject other)
     {
         if(other.name == Enemy)
         {
             Destroy(other);
         }
+
         if (other.name == Speed)
         {
             _playerMover.Speed *= 2;
