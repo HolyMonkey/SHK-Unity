@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,12 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
-        float xDir = Input.GetAxis("Horizontal");
-        float yDir = Input.GetAxis("Vertical");
+        float xDirection = Input.GetAxis("Horizontal");
+        float yDirection = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = new Vector2(xDir, yDir);
+        Vector3 direction = new Vector2(xDirection, yDirection);
 
-        transform.position += moveDirection * _speed * Time.deltaTime;
+        transform.position += direction * _speed * Time.deltaTime;
     }
 
     public void SetSpeed(float newSpeed)

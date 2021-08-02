@@ -3,7 +3,7 @@
 public class EnemyMovement : MonoBehaviour
 {
     private Vector3 _target;
-    private float _targetRadius;
+    private float _movementRadius = 4;
 
     private void Start()
     {
@@ -23,6 +23,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void FindNewTarget()
     {
-        _target = Random.insideUnitCircle * _targetRadius;
+        _target = Random.insideUnitCircle * _movementRadius;
     }
 }

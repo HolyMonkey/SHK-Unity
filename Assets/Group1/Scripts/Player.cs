@@ -1,13 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
-
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private bool _isTimerRunning;
-    [SerializeField] private float _timer;
 
+    private float _timer = 2f;
     private PlayerMovement _playerMovement;
     private Game _game;
 
@@ -19,17 +18,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (_isTimerRunning)
-        {
-            _timer -= Time.deltaTime;
-
-            if(_timer <= 0)
-            {
-                _isTimerRunning = false;
-                _playerMovement.SetSpeed(_playerMovement.Speed / 2);
-            }
-        }
-
         EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
 
         if(enemies.Length == 0)
@@ -37,7 +25,13 @@ public class Player : MonoBehaviour
             _game.EndGame();
             enabled = false;
         }
+    }
 
+    private IEnumerator SpeedBoost()
+    {
+        _playerMovement.SetSpeed(_playerMovement.Speed * 2);
+        yield return new WaitForSeconds(_timer);
+        _playerMovement.SetSpeed(_playerMovement.Speed / 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,9 +43,7 @@ public class Player : MonoBehaviour
         
         if(collision.TryGetComponent<SpeedBooster>(out _))
         {
-            _playerMovement.SetSpeed(_playerMovement.Speed * 2);
-            _isTimerRunning = true;
-            _timer = 2f;
+            StartCoroutine(SpeedBoost());
         }
     }
 }
