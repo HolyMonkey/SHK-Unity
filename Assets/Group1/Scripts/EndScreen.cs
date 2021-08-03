@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class EndScreen : MonoBehaviour
 {
-    [SerializeField] private EnemyList _enemyList;
+    [SerializeField] private EnemiesList _enemiesList;
     [SerializeField] private GameObject _endScreen;
 
     private void OnEnable()
     {
-        _enemyList.EnemiesDied += OnEnemiesDied;
+        _enemiesList.EnemiesDied += OnEnemiesesDied;
     }
 
     private void OnDisable()
     {
-        _enemyList.EnemiesDied -= OnEnemiesDied;
+        _enemiesList.EnemiesDied -= OnEnemiesesDied;
     }
 
-    private void OnEnemiesDied()
+    private void OnEnemiesesDied()
     {
         _endScreen.SetActive(true);
     }
