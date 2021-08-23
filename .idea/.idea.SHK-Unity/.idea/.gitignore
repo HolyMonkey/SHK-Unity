@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.SHK-Unity.iml
+# Datasource local storage ignored files
+/../../../../../../../:\Unity\Repository\SHK-Unity\.idea\.idea.SHK-Unity\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
