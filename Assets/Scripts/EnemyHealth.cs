@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public event Action<EnemyHealth> OnDied;
+    public event Action<EnemyHealth> Died;
     
     public void Die()
     {
-        OnDied?.Invoke(this);
+        Died?.Invoke(this);
         Destroy(gameObject);
     }
 }

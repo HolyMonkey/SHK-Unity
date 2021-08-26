@@ -4,59 +4,68 @@ public class PlayerMovement : MonoBehaviour
 {
     private const string HorizontalAxisName = "Horizontal";
     private const string VerticalAxisName = "Vertical";
-    
+
+    [SerializeField] private float _speedChangingValue = 2f;
+    [SerializeField] private float _originSpeed = 4f;
+    [SerializeField] private float _originTime = 5f;
+
+    private float _currentSpeed;
     private float _currentTime;
     private EnemiesSpawner _enemiesSpawner;
 
-    [SerializeField] private float _speed = 4f;
-    [SerializeField] private bool _hasMaxSpeed = true;
-    [SerializeField] private float _originTime = 2f;
 
     public void Init(EnemiesSpawner enemiesSpawner)
     {
         _enemiesSpawner = enemiesSpawner;
-        _enemiesSpawner.OnEnemyDied += OnEnemyDied;
-        _enemiesSpawner.OnAllEnemiesDied += OnAllEnemiesDied;
+        _enemiesSpawner.EnemyDied += EnemyDied;
+        _enemiesSpawner.AllEnemiesDied += AllEnemiesDied;
         _currentTime = _originTime;
+        _currentSpeed = _originSpeed;
     }
 
     private void Update()
     {
-        if (_hasMaxSpeed)
+        if (CanChangeSpeed())
         {
             _currentTime -= Time.deltaTime;
             if (_currentTime < 0)
             {
-                _hasMaxSpeed = false;
-                _speed /= 2;
+                SetCurrentSpeed(-_speedChangingValue);
+                ResetCurrentTime();
             }
         }
-        
+
         float horizontal = Input.GetAxis(HorizontalAxisName);
         float vertical = Input.GetAxis(VerticalAxisName);
 
-        transform.Translate(horizontal * _speed * Time.deltaTime, vertical * _speed * Time.deltaTime, 0);
+        transform.Translate(horizontal * _currentSpeed * Time.deltaTime, vertical * _currentSpeed * Time.deltaTime, 0);
     }
 
-    private void OnAllEnemiesDied()
+    private void AllEnemiesDied()
     {
-        _enemiesSpawner.OnEnemyDied -= OnEnemyDied;
-        _enemiesSpawner.OnAllEnemiesDied -= OnAllEnemiesDied;
+        _enemiesSpawner.EnemyDied -= EnemyDied;
+        _enemiesSpawner.AllEnemiesDied -= AllEnemiesDied;
         enabled = false;
     }
 
-    private void OnEnemyDied(EnemyHealth obj)
+    private void EnemyDied(EnemyHealth obj)
     {
-        if (!_hasMaxSpeed)
-        {
-            ResetSpeed();
-        }
+        SetCurrentSpeed(_speedChangingValue);
+        ResetCurrentTime();
     }
 
-    private void ResetSpeed()
+    private void SetCurrentSpeed(float speed)
     {
-        _speed *= 2;
-        _hasMaxSpeed = true;
+        _currentSpeed += speed;
+    }
+
+    private void ResetCurrentTime()
+    {
         _currentTime = _originTime;
+    }
+
+    private bool CanChangeSpeed()
+    {
+        return _currentTime > 0 && _currentSpeed > 0;
     }
 }

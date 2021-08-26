@@ -8,13 +8,15 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] private Transform _parent;
     [SerializeField] private EnemiesSpawner _enemiesSpawner;
 
-    public event Action<Transform> OnPlayerSpawned;
+    public GameObject Player { get; private set; }
+    
+    public event Action<Transform> Spawned;
     
     public  void Init()
     {
-        GameObject player = Instantiate(_playerTemplate, _spawnPosition.transform.position, Quaternion.identity, _parent);
-        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        Player = Instantiate(_playerTemplate, _spawnPosition.transform.position, Quaternion.identity, _parent);
+        PlayerMovement playerMovement = Player.GetComponent<PlayerMovement>();
         playerMovement.Init(_enemiesSpawner);
-        OnPlayerSpawned?.Invoke(player.transform);
+        Spawned?.Invoke(Player.transform);
     }
 }

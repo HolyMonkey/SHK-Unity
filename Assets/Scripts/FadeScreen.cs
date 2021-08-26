@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class FadeScreen : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
-
     [SerializeField] private EnemiesSpawner _enemiesSpawner;
-
+    
+    private SpriteRenderer _spriteRenderer;
+    
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -15,12 +14,16 @@ public class FadeScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemiesSpawner.OnAllEnemiesDied += ShowFade;
+        _enemiesSpawner.AllEnemiesDied += ShowFade;
+    }
+
+    private void OnDisable()
+    {
+        _enemiesSpawner.AllEnemiesDied -= ShowFade;
     }
 
     private void ShowFade()
     {
         _spriteRenderer.enabled = true;
-        _enemiesSpawner.OnAllEnemiesDied -= ShowFade;
     }
 }
