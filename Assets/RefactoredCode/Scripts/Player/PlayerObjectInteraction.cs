@@ -6,7 +6,7 @@ public class PlayerObjectInteraction : MonoBehaviour
     [SerializeField] private float _interactionDistance;
 
     public event Action<Enemy> EnemyCollided;
-    public event Action SpeedBoosterPicked;
+    public event Action<SpeedBooster> SpeedBoosterPicked;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -27,7 +27,7 @@ public class PlayerObjectInteraction : MonoBehaviour
 
         if (collidedObject.TryGetComponent(out SpeedBooster booster))
         {
-            SpeedBoosterPicked?.Invoke();
+            SpeedBoosterPicked?.Invoke(booster);
 
             Destroy(booster.gameObject);
         }

@@ -1,15 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerObjectInteraction))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private float _timerValue;
-    [SerializeField] private float _speedModifier;
 
-    private bool _isTimerActive;
-    private float _time;
     private Rect _boundsRect;
     private PlayerObjectInteraction _interactor;
 
@@ -21,17 +18,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _interactor.SpeedBoosterPicked += OnSpeedBoosterPicked;
+        _interactor.SpeedBoosterPicked += (booster) => StartCoroutine(BoostSpeed(booster));
     }
 
     private void OnDisable()
     {
-        _interactor.SpeedBoosterPicked += OnSpeedBoosterPicked;
-    }
-
-    private void Update()
-    {
-        CheckIsTimerActive();
+        _interactor.SpeedBoosterPicked -= (booster) => StartCoroutine(BoostSpeed(booster));
     }
 
     public void TryMove(Vector2 direction)
@@ -52,29 +44,12 @@ public class PlayerMovement : MonoBehaviour
         return new Rect(screenBounds, screenBounds * -2);
     }
 
-    private void CheckIsTimerActive()
+    private IEnumerator BoostSpeed(SpeedBooster booster)
     {
-        if (_isTimerActive)
-        {
-            _time -= Time.deltaTime;
+        _speed *= booster.SpeedBoostModifier;
 
-            CheckTimeout();
-        }
-    }
+        yield return new WaitForSeconds(booster.SpeedBoostTime);
 
-    private void CheckTimeout()
-    {
-        if (_time < 0)
-        {
-            _isTimerActive = false;
-            _speed /= _speedModifier;
-        }
-    }
-
-    private void OnSpeedBoosterPicked()
-    {
-        _speed *= _speedModifier;
-        _isTimerActive = true;
-        _time = _timerValue;
+        _speed /= booster.SpeedBoostModifier;
     }
 }
