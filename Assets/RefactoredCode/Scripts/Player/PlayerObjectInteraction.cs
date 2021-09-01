@@ -19,17 +19,11 @@ public class PlayerObjectInteraction : MonoBehaviour
     private void InteractWithObject(GameObject collidedObject)
     {
         if (collidedObject.TryGetComponent(out Enemy enemy))
-        {
             EnemyCollided?.Invoke(enemy);
 
-            Destroy(enemy.gameObject);
-        }
-
         if (collidedObject.TryGetComponent(out SpeedBooster booster))
-        {
             SpeedBoosterPicked?.Invoke(booster);
 
-            Destroy(booster.gameObject);
-        }
+        Destroy(collidedObject);
     }
 }

@@ -14,11 +14,17 @@ public class MoveTowardsTarget : MonoBehaviour
 
     private void Update()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         transform.position = Vector3.MoveTowards(transform.position, _target, _targetDistanceDelta * Time.deltaTime);
 
         if (transform.position == _target)
             FindNewTarget(_circleRangeAroundTarget);
     }
+
     private void FindNewTarget(float circleRange)
     {
         _target = Random.insideUnitCircle * circleRange;

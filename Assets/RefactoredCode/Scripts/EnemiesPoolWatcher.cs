@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemiesPoolWatcher : MonoBehaviour
 {
-    [SerializeField] private GameObject _endScreen;
+    [SerializeField] private GameObject _endScreenTemplate;
     [SerializeField] private PlayerObjectInteraction _player;
     [SerializeField] private List<Enemy> _enemies = new List<Enemy>();
 
@@ -28,7 +28,7 @@ public class EnemiesPoolWatcher : MonoBehaviour
     {
         if (_enemies.Count == 0)
         {
-            _endScreen.SetActive(true);
+            _endScreenTemplate.SetActive(true);
 
             Time.timeScale = 0;
         }
