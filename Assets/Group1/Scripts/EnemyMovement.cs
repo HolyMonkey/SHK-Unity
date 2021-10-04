@@ -18,7 +18,6 @@ public class EnemyMovement : MonoBehaviour
         {
             FindNewTarget();
         }
-
     }
 
     private void FindNewTarget()
