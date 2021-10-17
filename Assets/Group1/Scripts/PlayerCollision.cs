@@ -9,7 +9,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.collider.transform.parent.TryGetComponent<Enemy>(out _))
         {
-            Destroy(collision.collider.transform.parent.gameObject);
+            Destroy(collision);
 
             _enemyContainer.TryEndLevel();
         }
@@ -18,7 +18,12 @@ public class PlayerCollision : MonoBehaviour
         {
             transform.parent.GetComponent<PlayerController>().IncreaseSpeed();
 
-            Destroy(collision.collider.transform.parent.transform.gameObject);
+            Destroy(collision);
         }
+    }
+
+    private void Destroy(Collision2D collision)
+    {
+        Destroy(collision.collider.transform.parent.gameObject);
     }
 }
