@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
             _enemyContainer.TryEndLevel();
         }
 
-        if (collision.collider.transform.parent.TryGetComponent<Speed>(out _))
+        if (collision.collider.transform.parent.TryGetComponent<IconSpeed>(out _))
         {
             transform.parent.GetComponent<PlayerController>().IncreaseSpeed();
 
