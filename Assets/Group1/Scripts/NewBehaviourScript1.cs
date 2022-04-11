@@ -52,14 +52,13 @@ public class NewBehaviourScript1 : MonoBehaviour
         if(b.name == "enemy")
         {
             Destroy(b);
-        }if(b.name == "speed")
+        }
+
+        if(b.name == "speed")
         {
             spEed *= 2;
             timer = true;
             time = 2;
-
-
-
         }
     }
 }
