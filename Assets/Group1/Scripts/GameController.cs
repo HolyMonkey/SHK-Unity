@@ -1,38 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController controller;
+    private Enemy[] _enemies;
+    private int _numberEnemies = 0;
 
-    public GameObject go;
-    public GameObject a;
-    public GameObject[] B;
+    public static event Action EndGame;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        controller = this;
+        _enemies = gameObject.GetComponentsInChildren<Enemy>();
     }
 
-    public void End()
+    private void Awake()
     {
-        go.SetActive(true);
+        Player.EnemyDefeated.AddListener(TryEnd);
     }
 
-    // Update is called once per frame
-    void Update(){
-        foreach (var b in B)
-        {
-            if (b == null)
-                continue;
-
-                if (Vector3.Distance(a.gameObject.gameObject.GetComponent<Transform>().position, b.gameObject.gameObject.transform.position) < 0.2f)
-                {
-                    a.SendMessage("SendMEssage", b);
-                }
-
-        }
+    private void TryEnd()
+    {
+        _numberEnemies++;
+        if (_numberEnemies == _enemies.Length)
+            EndGame?.Invoke();
     }
 }
+
